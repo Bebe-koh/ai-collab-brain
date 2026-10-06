@@ -37,7 +37,7 @@ state between Atlas's monitoring and their work.
 | Q-001 | v1  | #7    | DONE   | Investigate the X4227 sub-threshold veto-passing candidate |
 | Q-002 | v1  | #8    | DONE   | Prior-art survey: achromaticity vetoes in (sub)mm pol.    |
 | Q-003 | v1  | #9    | QUEUED | Independent reimplementation cross-check of v2 null99     |
-| Q-004 | v1  | #10   | QUEUED | ALMA Band 6 EVPA systematics budget, 10-120 min scales    |
+| Q-004 | v1  | #10   | DONE   | ALMA Band 6 EVPA systematics budget, 10-120 min scales    |
 | Q-005 | v1  | #11   | QUEUED | EHT 2018/2021 calibrator-scan scoping for R(t)             |
 
 ## How the loop runs
