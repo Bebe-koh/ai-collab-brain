@@ -1,1 +1,92 @@
-{"hypotheses":[{"name":"Kerr/CS polarimetry (dynamical pseudoscalar EVPA transients)","slug":"kerr-cs-polarimetry","status":"active","verdict":"open — first real-data test null (3/8 EBs), 5 EBs pending"},{"name":"QSE: Planck-relic dark matter from non-Gaussian formation","slug":"qse-planck-relics","status":"parked","verdict":"formation viable under stated assumptions; mass-conversion impasse (no known-physics path)"},{"name":"PRTP: covariance-aware pulsar timing fusion for spacecraft clocks","slug":"prtp-timing-fusion","status":"active","verdict":"simulation arc complete; X-ray NO-GO, radio rescue survives realism tests; NANOGrav pilot designed"},{"name":"Pulsar ideas program (XNAV, crypto, glitch precursors, PTA noise, metrology)","slug":"pulsar-ideas","status":"active","verdict":"idea 02 cislunar XNAV: partially works (100x short of 50 m bar on realistic dish); crypto idea #2 feasibility to confirm"},{"name":"RPF bounded modified-growth ansatz","slug":"rpf-growth","status":"parked","verdict":"no model-selection evidence over LCDM; DESI DR2 growth tripwire set"},{"name":"Neutron-star superfluid / superfluid-vacuum fingerprint hunt","slug":"superfluid-vacuum","status":"active","verdict":"arc closed at theory level; BEC tabletop proposal written; monthly glitch-rise watch running"},{"name":"Gravity Mapper hidden-body inference","slug":"gravity-mapper","status":"blocked","verdict":"blocked on Jase uploading the project archive"},{"name":"EVADE_72 fractal fold kinematic constant","slug":"evade72","status":"parked","verdict":"needs explicit mathematics before any claim"},{"name":"Hercules-Corona Borealis Great Wall as Gpc overdensity","slug":"great-wall-grb","status":"killed","verdict":"ruled out by DESI DR1 quasar cross-check (2026-10-03)"}],"project_summary":"Multi-agent shared board for Jase's physics/cosmology hypothesis portfolio: formation/viability studies, archival-data searches, and simulation benchmarks.","standing_rules":["No validated/production-ready/falsified/detected labels without reproducible calculations, stated assumptions, proper statistics, independent validation.","Another agent's report is a hypothesis until checked against primary evidence.","Repo is public: no personal data, credentials, or private identifiers."],"tasks":[],"version":2}
+{
+ "hypotheses": [
+  {
+   "name": "Kerr/CS polarimetry (dynamical pseudoscalar EVPA transients)",
+   "slug": "kerr-cs-polarimetry",
+   "status": "active",
+   "verdict": "open \u2014 first real-data test null (3/8 EBs), 5 EBs pending",
+   "files": "hypotheses/kerr-cs-polarimetry/FILES.md"
+  },
+  {
+   "name": "QSE: Planck-relic dark matter from non-Gaussian formation",
+   "slug": "qse-planck-relics",
+   "status": "parked",
+   "verdict": "formation viable under stated assumptions; mass-conversion impasse (no known-physics path)",
+   "files": "hypotheses/qse-planck-relics/FILES.md"
+  },
+  {
+   "name": "PRTP: covariance-aware pulsar timing fusion for spacecraft clocks",
+   "slug": "prtp-timing-fusion",
+   "status": "active",
+   "verdict": "simulation arc complete; X-ray NO-GO, radio rescue survives realism tests; NANOGrav pilot designed",
+   "files": "hypotheses/prtp-timing-fusion/FILES.md"
+  },
+  {
+   "name": "Pulsar ideas program (XNAV, crypto, glitch precursors, PTA noise, metrology)",
+   "slug": "pulsar-ideas",
+   "status": "active",
+   "verdict": "idea 02 cislunar XNAV: partially works (100x short of 50 m bar on realistic dish); crypto idea #2 feasibility to confirm",
+   "files": "hypotheses/pulsar-ideas/FILES.md"
+  },
+  {
+   "name": "RPF bounded modified-growth ansatz",
+   "slug": "rpf-growth",
+   "status": "parked",
+   "verdict": "no model-selection evidence over LCDM; DESI DR2 growth tripwire set",
+   "files": "hypotheses/rpf-growth/FILES.md"
+  },
+  {
+   "name": "Neutron-star superfluid / superfluid-vacuum fingerprint hunt",
+   "slug": "superfluid-vacuum",
+   "status": "active",
+   "verdict": "arc closed at theory level; BEC tabletop proposal written; monthly glitch-rise watch running",
+   "files": "hypotheses/superfluid-vacuum/FILES.md"
+  },
+  {
+   "name": "Gravity Mapper hidden-body inference",
+   "slug": "gravity-mapper",
+   "status": "blocked",
+   "verdict": "blocked on Jase uploading the project archive",
+   "files": "hypotheses/gravity-mapper/FILES.md"
+  },
+  {
+   "name": "EVADE_72 fractal fold kinematic constant",
+   "slug": "evade72",
+   "status": "parked",
+   "verdict": "needs explicit mathematics before any claim",
+   "files": "hypotheses/evade72/FILES.md"
+  },
+  {
+   "name": "Hercules-Corona Borealis Great Wall as Gpc overdensity",
+   "slug": "great-wall-grb",
+   "status": "killed",
+   "verdict": "ruled out by DESI DR1 quasar cross-check (2026-10-03)",
+   "files": "hypotheses/great-wall-grb/FILES.md"
+  }
+ ],
+ "project_summary": "Multi-agent shared board for Jase's physics/cosmology hypothesis portfolio: formation/viability studies, archival-data searches, and simulation benchmarks.",
+ "standing_rules": [
+  "No validated/production-ready/falsified/detected labels without reproducible calculations, stated assumptions, proper statistics, independent validation.",
+  "Another agent's report is a hypothesis until checked against primary evidence.",
+  "Repo is public: no personal data, credentials, or private identifiers."
+ ],
+ "tasks": [
+  {
+   "task": "Kerr/CS ALMA search: 5 remaining EBs reducing (self-healing pipeline); v2 search each new EB on landing",
+   "status": "active"
+  },
+  {
+   "task": "Pulsar crypto idea #2 feasibility workup",
+   "status": "awaiting Jase confirmation"
+  },
+  {
+   "task": "PRTP NANOGrav radio pilot",
+   "status": "designed, pending Jase go"
+  },
+  {
+   "task": "Decide whether repo stays public",
+   "status": "open"
+  }
+ ],
+ "version": 3
+}
