@@ -35,6 +35,14 @@ REPAIRS vs v1 (audit 2026-10-06):
       argument it never used (ordinary least squares; amplitude uncertainty
       from fit residuals). v2 drops the dead argument and documents OLS.
 
+PARAMETER CORRECTION (2026-10-06): the committed source briefly carried
+N_CAMP=500 and injection_recovery(trials=25) while the published
+methodology claimed 1000 campaigns and 100 trials, and the default file
+list omitted X4227. All three are corrected above (N_CAMP=1000,
+trials=100, X4227 included) so the code as committed now generates the
+published numbers. See v2_results/RUN_LOG.md for the exact invocation and
+v2_results/rerun_reconciliation_2026-10-06.md for the verification.
+
 Method per contiguous segment:
   y(t) = c0 + c1*(t-tc) + A * s((t-t0)/w) + noise,  s(x)=0.5*(1+tanh(x))
 solved by ordinary least squares on a (t0, tau) grid; S/N = A_hat/sigma_A
@@ -52,7 +60,9 @@ import matplotlib.pyplot as plt
 DATA_DIR = "/home/hatch/workspace/goals/kerr-cs-polarimetry-exploration/hidden_files/alma_data/sgra_work"
 
 TAU_GRID = np.array([10., 15., 22., 32., 46.9, 68., 100., 120.])  # s
-N_CAMP = 500          # surrogate campaigns for the per-EB null
+N_CAMP = 1000         # surrogate campaigns for the per-EB null
+                      # (2026-10-06 correction: was 500 in the committed source while the
+                      #  published methodology claimed 1000; corrected to match.)
 GAP_TOL = 20.0        # s; larger gaps start a new segment
 I_MASK_JY = 1.0       # mask integrations with median I below this
 
@@ -300,11 +310,13 @@ def analyze_eb(path, n_camp=N_CAMP, seed=1234):
                 cands=cands)
 
 
-def injection_recovery(seg_data, lam2, thr, amps, taus, trials=25, seed=7):
+def injection_recovery(seg_data, lam2, thr, amps, taus, trials=100, seed=7):
     """R4: inject achromatic tanh(A, t0, tau) into real per-SPW series,
     run full pipeline (detection + veto); returns P(detect) per (tau, A).
     Detection requires: segment best |S/N| >= thr, veto passes at that
-    candidate, and recovered t0 within +/-tau of the injected t0."""
+    candidate, and recovered t0 within +/-tau of the injected t0.
+    (2026-10-06 correction: default trials was 25 while published
+    methodology claimed 100; corrected to match.)"""
     rng = np.random.default_rng(seed)
     P = np.zeros((len(taus), len(amps)))
     chi2_true = []   # chi2/3 of detected true injections (diagnostic)
@@ -542,7 +554,8 @@ def main(argv=None):
         paths = [os.path.abspath(f) for f in args.files]
     else:
         paths = [os.path.join(DATA_DIR, f) for f in
-                 ["SGRA2017_X4947_IQUV.npz", "SGRA2017_X448f_IQUV.npz"]]
+                 ["SGRA2017_X4947_IQUV.npz", "SGRA2017_X448f_IQUV.npz",
+                  "SGRA2017_X4227_IQUV.npz"]]  # 2026-10-06: X4227 was omitted from the default list; added
     outdir = os.path.abspath(args.outdir) if args.outdir \
         else os.path.dirname(os.path.abspath(__file__))
     os.makedirs(outdir, exist_ok=True)

@@ -119,3 +119,17 @@ the largest single-sample jump per segment with per-SPW steps:
   statistic must be calibrated end-to-end on injections into the real
   data, because analytic error bars do not survive inter-band
   correlated systematics.
+
+## Reproducibility re-run (2026-10-06)
+
+Grok's audit caught a real defect in the committed code: `N_CAMP=500`
+and `injection_recovery(trials=25)` while this note described 1000
+campaigns and 100 trials, with no run log of the original invocation.
+Fix: N_CAMP 500->1000, trials 25->100, X4227 added to the default file
+list (values only; script md5 `eb55f47a98d3431dd0bc9a933a7575fb`).
+Full re-run on all three EBs (fixed seeds; command in
+`v2_results/RUN_LOG.md`): null95/null99, observed campaign maxima, and
+100/100 detection fractions at 55.6 deg / tau=46.9 s reproduce exactly;
+A90/A99 moved 1-4 deg (MC noise from 25->100 trials), all inside the
+published ranges. Headline claims confirmed. Comparison table and
+diagnostics in `v2_results/rerun_reconciliation_2026-10-06.md`.

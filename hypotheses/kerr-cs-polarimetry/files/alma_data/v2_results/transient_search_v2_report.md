@@ -11,9 +11,9 @@
   - seg3 t0+29.5min tau=100s A=+4.5 S/N=+14.8 veto=FAIL (chi2/3=12.3, Faraday chi2/3=11.2)
   - seg0 t0+1.9min tau=47s A=+0.7 S/N=+8.8 veto=PASS (chi2/3=0.7, Faraday chi2/3=0.8)
 - Injection-recovery P(detect) vs amplitude (full pipeline):
-  - tau=10s: A_90=19.3 deg, A_99=28.8 deg, P(detect 55.6 deg)=1.000
-  - tau=47s: A_90=23.8 deg, A_99=29.4 deg, P(detect 55.6 deg)=1.000
-  - tau=120s: A_90=28.8 deg, A_99=52.4 deg, P(detect 55.6 deg)=1.000
+  - tau=10s: A_90=19.7 deg, A_99=30.0 deg, P(detect 55.6 deg)=1.000
+  - tau=47s: A_90=19.6 deg, A_99=30.0 deg, P(detect 55.6 deg)=1.000
+  - tau=120s: A_90=28.0 deg, A_99=49.2 deg, P(detect 55.6 deg)=1.000
 - Single-SPW-jump control: 20deg: det=0.16, veto-pass=0.00, 40deg: det=0.28, veto-pass=0.00, 80deg: det=0.36, veto-pass=0.00
 - True-signal dilution ratio max|A_spw|/|A_bar|: median 1.16, max 1.99 (veto passes <= 2.0; single-SPW artifacts score ~4)
 
@@ -26,9 +26,9 @@
   - seg1 t0+14.9min tau=120s A=+2.4 S/N=+14.5 veto=FAIL (chi2/3=11.3, Faraday chi2/3=11.0)
   - seg3 t0+45.7min tau=32s A=+0.7 S/N=+13.8 veto=FAIL (chi2/3=5.0, Faraday chi2/3=4.9)
 - Injection-recovery P(detect) vs amplitude (full pipeline):
-  - tau=10s: A_90=5.7 deg, A_99=7.8 deg, P(detect 55.6 deg)=1.000
-  - tau=47s: A_90=7.2 deg, A_99=11.0 deg, P(detect 55.6 deg)=1.000
-  - tau=120s: A_90=9.5 deg, A_99=11.8 deg, P(detect 55.6 deg)=1.000
+  - tau=10s: A_90=6.7 deg, A_99=10.0 deg, P(detect 55.6 deg)=1.000
+  - tau=47s: A_90=6.9 deg, A_99=11.0 deg, P(detect 55.6 deg)=1.000
+  - tau=120s: A_90=9.8 deg, A_99=12.0 deg, P(detect 55.6 deg)=1.000
 - Single-SPW-jump control: 20deg: det=0.60, veto-pass=0.00, 40deg: det=0.56, veto-pass=0.00, 80deg: det=0.88, veto-pass=0.00
 - True-signal dilution ratio max|A_spw|/|A_bar|: median 1.08, max 1.98 (veto passes <= 2.0; single-SPW artifacts score ~4)
 
@@ -41,9 +41,9 @@
   - seg2 t0+25.0min tau=68s A=+1.4 S/N=+25.0 veto=FAIL (chi2/3=106.2, Faraday chi2/3=106.7)
   - seg0 t0+5.4min tau=68s A=-1.2 S/N=-17.4 veto=FAIL (chi2/3=2.0, Faraday chi2/3=2.1)
 - Injection-recovery P(detect) vs amplitude (full pipeline):
-  - tau=10s: A_90=11.3 deg, A_99=18.0 deg, P(detect 55.6 deg)=1.000
-  - tau=47s: A_90=11.3 deg, A_99=19.0 deg, P(detect 55.6 deg)=1.000
-  - tau=120s: A_90=11.8 deg, A_99=19.0 deg, P(detect 55.6 deg)=1.000
+  - tau=10s: A_90=11.4 deg, A_99=18.4 deg, P(detect 55.6 deg)=1.000
+  - tau=47s: A_90=11.5 deg, A_99=18.9 deg, P(detect 55.6 deg)=1.000
+  - tau=120s: A_90=11.7 deg, A_99=18.9 deg, P(detect 55.6 deg)=1.000
 - Single-SPW-jump control: 20deg: det=0.32, veto-pass=0.08, 40deg: det=0.24, veto-pass=0.04, 80deg: det=0.32, veto-pass=0.00
 - True-signal dilution ratio max|A_spw|/|A_bar|: median 1.10, max 1.89 (veto passes <= 2.0; single-SPW artifacts score ~4)
 
@@ -71,3 +71,19 @@
 - Temporal unwrapping assumes no true >90-deg jump within one 4-s sample; unresolved steps are covered only by the jump scan above.
 - Exclusion applies to resolved tanh ramps with tau in [10,120] s occurring inside analyzed segments.
 - v1 claims (null percentiles ~40-46, 'excluded at >>99%' from predicted S/N) are SUPERSEDED by this v2 calibration.
+
+## Reproducibility re-run (2026-10-06)
+
+An independent audit (Grok) found the committed code defaulted to
+N_CAMP=500 and trials=25 while this report described 1000 campaigns and
+100 trials, with no run log of the original invocation. The code was
+corrected (N_CAMP=1000, trials=100, X4227 added to the default file list;
+values only, no structural changes) and the full analysis re-run on all
+three EBs with fixed seeds (1000 campaigns, 100-trial injections).
+Exact command and environment are logged in `v2_results/RUN_LOG.md`;
+full comparison in `v2_results/rerun_reconciliation_2026-10-06.md`.
+
+Result: null95/null99, observed campaign maxima, and the 100/100
+detection fractions at 55.6 deg / tau=46.9 s reproduce exactly. A90/A99
+above are the regenerated values (Monte-Carlo noise from 25->100 trials
+moved them 1-4 deg; all remain inside the ranges quoted in the summary).
