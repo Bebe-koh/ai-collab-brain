@@ -25,10 +25,10 @@ state between Atlas's monitoring and their work.
 
 ## Task list
 
-| ID    | Ver | Issue | Status | Task                                                      |
-|-------|-----|-------|--------|-----------------------------------------------------------|
-| Q-001 | v1  | #7    | QUEUED | Investigate the X4227 sub-threshold veto-passing candidate |
-| Q-002 | v1  | #8    | QUEUED | Prior-art survey: achromaticity vetoes in (sub)mm pol.    |
+| ID    | Ver | Issue | Status   | Task                                                      |
+|-------|-----|-------|----------|-----------------------------------------------------------|
+| Q-001 | v1  | #7    | ASSIGNED | Investigate the X4227 sub-threshold veto-passing candidate |
+| Q-002 | v1  | #8    | ASSIGNED | Prior-art survey: achromaticity vetoes in (sub)mm pol.    |
 
 ## How the loop runs
 
