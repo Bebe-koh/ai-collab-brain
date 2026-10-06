@@ -1,0 +1,235 @@
+{
+  "pulsars": {
+    "J0437-4715": {
+      "n_toa": 5537,
+      "n_toa_cut": 293,
+      "mjd_min": 57221.64792344078,
+      "mjd_max": 58957.92662657263,
+      "resid_rms_ns": 824.1773613964796,
+      "weighted_resid_rms_ns": 513.2813320765931,
+      "red_noise": {
+        "log10_A": -13.406373583662774,
+        "gamma": 0.5175256324034094
+      },
+      "n_efac_backends": 2,
+      "median_efac": 3.3863229177228797,
+      "median_equad_ns": 9.934620297990204e-06,
+      "median_ecorr_ns": 0.0005117764033073811
+    },
+    "J1909-3744": {
+      "n_toa": 34829,
+      "n_toa_cut": 208,
+      "mjd_min": 53292.01653199197,
+      "mjd_max": 58950.60796214825,
+      "resid_rms_ns": 1042.7549190838756,
+      "weighted_resid_rms_ns": 355.469392357101,
+      "red_noise": {
+        "log10_A": -14.535193825503613,
+        "gamma": 4.09231323828722
+      },
+      "n_efac_backends": 5,
+      "median_efac": 1.011675246351325,
+      "median_equad_ns": 4.1951002132362814e-05,
+      "median_ecorr_ns": 5.5512882173624216e-05
+    },
+    "B1937+21": {
+      "n_toa": 23023,
+      "n_toa_cut": 0,
+      "mjd_min": 53267.086004953446,
+      "mjd_max": 59065.129048874434,
+      "resid_rms_ns": 6393.387795967355,
+      "weighted_resid_rms_ns": 6362.870217264402,
+      "red_noise": {
+        "log10_A": -13.56511311669361,
+        "gamma": 4.032543494781249
+      },
+      "n_efac_backends": 8,
+      "median_efac": 1.432051637077837,
+      "median_equad_ns": 0.00011139651434315139,
+      "median_ecorr_ns": 0.00011204547378915186
+    },
+    "B1855+09": {
+      "n_toa": 7666,
+      "n_toa_cut": 92,
+      "mjd_min": 53358.727471718186,
+      "mjd_max": 59051.16494936886,
+      "resid_rms_ns": 2511.1428536891744,
+      "weighted_resid_rms_ns": 1036.0781762802403,
+      "red_noise": {
+        "log10_A": -13.98980815806683,
+        "gamma": 3.8778009938863742
+      },
+      "n_efac_backends": 4,
+      "median_efac": 1.0846633164091957,
+      "median_equad_ns": 5.908003434137619e-05,
+      "median_ecorr_ns": 0.000497741738437778
+    }
+  },
+  "files_used": {
+    "J0437-4715": {
+      "par": "narrowband/par/J0437-4715_PINT_20220301.nb.par",
+      "tim": "narrowband/tim/J0437-4715_PINT_20220301.nb.tim"
+    },
+    "J1909-3744": {
+      "par": "narrowband/par/J1909-3744_PINT_20220303.nb.par",
+      "tim": "narrowband/tim/J1909-3744_PINT_20220303.nb.tim"
+    },
+    "B1937+21": {
+      "par": "narrowband/par/B1937+21_PINT_20220306.nb.par",
+      "tim": "narrowband/tim/B1937+21_PINT_20220306.nb.tim"
+    },
+    "B1855+09": {
+      "par": "narrowband/par/B1855+09_PINT_20220301.nb.par",
+      "tim": "narrowband/tim/B1855+09_PINT_20220301.nb.tim"
+    }
+  },
+  "bin_days": 30.0,
+  "n_common_epochs": 14,
+  "mjd_common_min": 57212.0,
+  "mjd_common_max": 58952.0,
+  "pulsar_order": [
+    "J0437-4715",
+    "J1909-3744",
+    "B1937+21",
+    "B1855+09"
+  ],
+  "per_pulsar_epoch_sigma_ns": [
+    91.34232296819076,
+    13.823707819432775,
+    6.042462053410754,
+    72.54629275757237
+  ],
+  "gls_weights": [
+    0.003639510210259868,
+    0.15890514340922532,
+    0.8316856016641858,
+    0.0057697447163290215
+  ],
+  "est_gls_rms_ns": 2880.004343637353,
+  "est_mean_rms_ns": 980.2314433678179,
+  "variance_ratio_gls_over_mean": 8.632349721771545,
+  "theoretical_ratio_under_C": 0.03512040750403381,
+  "highpass_variance_ratio": 7.573946246222587,
+  "split_half_ratios": [
+    11.20880377015196,
+    7.337359666927692
+  ],
+  "notes": "Variances are sample variances of the common-mode estimate series on real residuals; no truth signal injected. C is diagonal white noise estimated from the data (TOA errors scaled by chain-median EFAC/EQUAD, median ECORR added per bin). Red noise characterized from chain medians but not included in the per-epoch C.",
+  "T_common_yr": 4.763860369609857,
+  "red_noise_chains": {
+    "J0437-4715": {
+      "log10_A": -13.406373583662774,
+      "gamma": 0.5175256324034094
+    },
+    "J1909-3744": {
+      "log10_A": -14.535193825503613,
+      "gamma": 4.09231323828722
+    },
+    "B1937+21": {
+      "log10_A": -13.56511311669361,
+      "gamma": 4.032543494781249
+    },
+    "B1855+09": {
+      "log10_A": -13.98980815806683,
+      "gamma": 3.8778009938863742
+    }
+  },
+  "red_epoch_sigma_ns": [
+    218.38024723607242,
+    32.952621387912224,
+    300.94767276896874,
+    106.98894953689057
+  ],
+  "empirical_bin_rms_ns": [
+    237.61828859746146,
+    271.75279285010237,
+    3501.7643517611677,
+    608.5520799362229
+  ],
+  "analysis_white_only": {
+    "gls_weights": [
+      0.003639510210259868,
+      0.15890514340922532,
+      0.8316856016641858,
+      0.0057697447163290215
+    ],
+    "variance_ratio_gls_over_mean": 8.632349721771545,
+    "jackknife_mean": 8.627986096620932,
+    "jackknife_std": 0.14167427655447415,
+    "theoretical_ratio_under_C": 0.03512040750403381,
+    "highpass_ratio": 7.5739462462225795,
+    "est_gls_rms_ns": 2880.004343637353,
+    "est_mean_rms_ns": 980.2314433678179
+  },
+  "analysis_white_plus_red": {
+    "gls_weights": [
+      0.020470110513646587,
+      0.8982268780773963,
+      0.01265930235603837,
+      0.06864370905291874
+    ],
+    "variance_ratio_gls_over_mean": 0.03749957310095826,
+    "jackknife_mean": 0.037564196041206366,
+    "jackknife_std": 0.0032045805393698277,
+    "theoretical_ratio_under_C": 0.11147783357038374,
+    "highpass_ratio": 0.1326905941424674,
+    "est_gls_rms_ns": 189.8199223178233
+  },
+  "cross_pulsar_corr": [
+    [
+      1.0,
+      -0.23297482602488495,
+      0.28564037736897774,
+      0.1565877393677042
+    ],
+    [
+      -0.23297482602488495,
+      1.0,
+      -0.832128706786457,
+      -0.6032332272009552
+    ],
+    [
+      0.2856403773689777,
+      -0.832128706786457,
+      1.0,
+      0.9158485985123614
+    ],
+    [
+      0.1565877393677042,
+      -0.6032332272009552,
+      0.9158485985123614,
+      1.0
+    ]
+  ],
+  "analysis_empirical_C": {
+    "method": "C = sample covariance of the 14-epoch residual matrix (in-sample; N=14, clustered epochs)",
+    "gls_weights": [
+      0.254512349717832,
+      0.7510868883307222,
+      0.05429475573916427,
+      -0.05989399378771859
+    ],
+    "variance_ratio_gls_over_mean": 0.015215073170420843,
+    "jackknife_mean": 0.015003723252758247,
+    "jackknife_std": 0.0019436653487383728,
+    "est_gls_rms_ns": 120.91095519565032,
+    "est_mean_rms_ns": 980.2314433678181,
+    "note": "negative weight on B1855+09 exploits its 0.92 correlation with B1937+21 to cancel common noise; fragile at N=14"
+  },
+  "common_epoch_mjds": [
+    57212.0,
+    57242.0,
+    57272.0,
+    57782.0,
+    57812.0,
+    57842.0,
+    57902.0,
+    58622.0,
+    58652.0,
+    58742.0,
+    58772.0,
+    58802.0,
+    58892.0,
+    58952.0
+  ]
+}

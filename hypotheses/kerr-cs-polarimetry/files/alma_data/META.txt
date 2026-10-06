@@ -1,0 +1,25 @@
+ALMA 2016.1.01404.V Sgr A* 2017-04-07 - IQUV CSV exports for EVPA transient search v2
+Converted from SGRA2017_*_IQUV.npz (numpy) to plain CSV for cross-app access.
+One row per 4-s integration; mjd = days. Row order = time order.
+Columns: mjd, I0..I3, Q0..Q3, U0..U3, V0..V3 (4 spectral windows).
+
+SGRA2017_X4227_IQUV.npz
+  EB id: uid___A002_Xbec3cb_X4227
+  integrations: 532
+  SPW freq GHz: [213.09999999989992, 215.09999999989992, 227.1, 229.1]
+  units: Jy (visibility-averaged, APP MS DATA column)
+  field: Sagittarius_A_star
+
+SGRA2017_X448f_IQUV.npz
+  EB id: uid___A002_Xbec3cb_X448f
+  integrations: 428
+  SPW freq GHz: [213.09999999989992, 215.09999999989992, 227.1, 229.1]
+  units: Jy (visibility-averaged, APP MS DATA column)
+  field: Sagittarius_A_star
+
+SGRA2017_X4947_IQUV.npz
+  EB id: uid___A002_Xbec3cb_X4947
+  integrations: 432
+  SPW freq GHz: [213.09999999989992, 215.09999999989992, 227.1, 229.1]
+  units: Jy (visibility-averaged, APP MS DATA column)
+  field: Sagittarius_A_star

@@ -1,0 +1,8 @@
+{
+  "note": "Converted from formation_endtoend_results.npz; values are floats.",
+  "results": {
+    "T&L_illustrative": 57.61386401837181,
+    "briefing_low_mass_end": 57.61386401837181,
+    "briefing_high_mass_end": 7.437917861793759e-06
+  }
+}

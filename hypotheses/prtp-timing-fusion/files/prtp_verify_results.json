@@ -1,0 +1,208 @@
+{
+  "label": "verification-simulation, simulation-only; independent reimplementation from PRTP_verified_estimator_spec.md; does NOT import estimators.py/simulate.py/xray.py",
+  "seed": 20260922,
+  "geometry_source": "simulate.py PULSARS catalog (approx J2000; sim-only)",
+  "noise_levels": {
+    "white_sigma_w_ns": [
+      119.99999999999999,
+      150.0,
+      250.0,
+      700.0
+    ],
+    "ephemeris_rms_m": 50.0,
+    "ephemeris_rms_ns": 166.782047599076,
+    "gwb_per_epoch_rms_ns_sweep": [
+      50.0,
+      100.0,
+      200.0
+    ],
+    "note": "white from catalog; ephemeris from EPH_RMS_M/c; GWB RMS parameterized directly and swept (see module docstring)"
+  },
+  "tests": {
+    "hd_curve": {
+      "mu_at_zero": 1.0,
+      "zero_crossing_deg": 49.31726760067952,
+      "legendre_coeffs": {
+        "a0": -1.5421244142777013e-11,
+        "a1": -1.5421253792176348e-11,
+        "a2": 0.6249999999228937,
+        "a3": 0.1749999999640171
+      },
+      "spherical_mean": -1.5421244142777013e-11,
+      "psd_min_eigval_20sets": 0.02441724110669549,
+      "max_diag_deviation": 1.8207657603852567e-14
+    },
+    "gls_optimality": {
+      "n_matrices": 60,
+      "max_sum_deviation": 4.440892098500626e-16,
+      "min_margin_over_unweighted": 0.000751590083492429,
+      "min_margin_over_random_weights": 0.00019100026388286975,
+      "gls_best_in_all": true
+    },
+    "headline_mc": {
+      "anchors4_full_gwb50": {
+        "n_pulsars": 4,
+        "components": [
+          "white",
+          "eph",
+          "gwb"
+        ],
+        "gwb_rms_ns": 50.0,
+        "n_trials": 3000,
+        "rms_gls_ns": 129.2020687845353,
+        "rms_unweighted_ns": 212.54311650947238,
+        "ratio_unw_over_gls": 1.6450442203361417,
+        "gls_weight_vector": [
+          0.4888,
+          0.2459,
+          0.2379,
+          0.0274
+        ]
+      },
+      "anchors4_full_gwb100": {
+        "n_pulsars": 4,
+        "components": [
+          "white",
+          "eph",
+          "gwb"
+        ],
+        "gwb_rms_ns": 100.0,
+        "n_trials": 3000,
+        "rms_gls_ns": 137.43370262580427,
+        "rms_unweighted_ns": 220.92235028743318,
+        "ratio_unw_over_gls": 1.6074830705023386,
+        "gls_weight_vector": [
+          0.4656,
+          0.2774,
+          0.2307,
+          0.0263
+        ]
+      },
+      "anchors4_full_gwb200": {
+        "n_pulsars": 4,
+        "components": [
+          "white",
+          "eph",
+          "gwb"
+        ],
+        "gwb_rms_ns": 200.0,
+        "n_trials": 3000,
+        "rms_gls_ns": 163.44530256814116,
+        "rms_unweighted_ns": 245.70021027960797,
+        "ratio_unw_over_gls": 1.5032564804190338,
+        "gls_weight_vector": [
+          0.4195,
+          0.3328,
+          0.2232,
+          0.0245
+        ]
+      },
+      "anchors4_white_only": {
+        "n_pulsars": 4,
+        "components": [
+          "white"
+        ],
+        "gwb_rms_ns": 100.0,
+        "n_trials": 3000,
+        "rms_gls_ns": 86.31020807016529,
+        "rms_unweighted_ns": 189.31881007283158,
+        "ratio_unw_over_gls": 2.193469513118612,
+        "gls_weight_vector": [
+          0.5264,
+          0.3369,
+          0.1213,
+          0.0155
+        ]
+      },
+      "anchors4_white_eph": {
+        "n_pulsars": 4,
+        "components": [
+          "white",
+          "eph"
+        ],
+        "gwb_rms_ns": 100.0,
+        "n_trials": 3000,
+        "rms_gls_ns": 127.21667366404675,
+        "rms_unweighted_ns": 218.47034442750652,
+        "ratio_unw_over_gls": 1.7173090455457285,
+        "gls_weight_vector": [
+          0.499,
+          0.2315,
+          0.2416,
+          0.0279
+        ]
+      },
+      "anchors4_white_gwb": {
+        "n_pulsars": 4,
+        "components": [
+          "white",
+          "gwb"
+        ],
+        "gwb_rms_ns": 100.0,
+        "n_trials": 3000,
+        "rms_gls_ns": 101.94295656202976,
+        "rms_unweighted_ns": 206.0000775509457,
+        "ratio_unw_over_gls": 2.0207387003299218,
+        "gls_weight_vector": [
+          0.4672,
+          0.3742,
+          0.1411,
+          0.0175
+        ]
+      },
+      "pulsars10_full": {
+        "n_pulsars": 10,
+        "components": [
+          "white",
+          "eph",
+          "gwb"
+        ],
+        "gwb_rms_ns": 100.0,
+        "n_trials": 3000,
+        "rms_gls_ns": 98.92735255593716,
+        "rms_unweighted_ns": 145.95677524858237,
+        "ratio_unw_over_gls": 1.4753935234044908,
+        "gls_weight_vector": [
+          0.3253,
+          0.09,
+          0.0877,
+          0.0062,
+          0.2382,
+          0.053,
+          0.0399,
+          0.0748,
+          0.0665,
+          0.0184
+        ]
+      },
+      "_batch_spread": {
+        "anchors4_full_gwb100": {
+          "mean": 1.63,
+          "std": 0.13,
+          "min": 1.32,
+          "max": 1.87,
+          "batches": "30x100 trials"
+        },
+        "anchors4_white_only": {
+          "mean": 2.24,
+          "std": 0.22,
+          "min": 1.75,
+          "max": 2.62,
+          "batches": "30x100 trials"
+        }
+      },
+      "_gls_weights_anchors4_full": [
+        0.4656,
+        0.2774,
+        0.2307,
+        0.0263
+      ]
+    }
+  },
+  "partial": false,
+  "verdicts": {
+    "hd_curve": "REPRODUCED",
+    "gls_optimality": "REPRODUCED",
+    "headline_mc": "REPRODUCED WITH QUALIFICATION (see note)"
+  }
+}

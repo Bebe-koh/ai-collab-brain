@@ -1,0 +1,8 @@
+{
+  "test": "exposure_stratified_shuffle",
+  "n_obs": 34,
+  "null_mean": 24.7824,
+  "null_std": 3.6374510635883475,
+  "p_value": 0.0088,
+  "n_perm": 10000
+}

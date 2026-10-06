@@ -1,0 +1,12 @@
+psr,F0_Hz,epoch_mjd,log10_tau_g_s,tau_g_days,log10_q_heal,log10_tau_TN_s,log10_x_TN,log10_B_mf,B_note,ref
+J1048-5832,8.081444,49034(9),7.1,145.7,-1.6,7.4,-0.004,-8.817,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,WangEtAl2000
+J1048-5832,8.081444,50788(3),6.7,58.0,-2.1,7.4,-0.004,-8.409,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,WangEtAl2000
+J1048-5832,8.081444,56756(4),6.6,46.1,-2.4,7.4,-0.004,-8.307,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,LowerEtAl2021
+J1141-6545,2.538723,54277(20),7.6,460.8,-2.4,7.0,-0.63,-8.805,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,ManchesterEtAl2010
+J1452-6036,6.451934,55055.22(4),8.3,2309.3,-0.92,6.9,-0.004,-9.963,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,LowerEtAl2021
+J1803-2137,7.481283,48245(11),7.1,145.7,-1.9,7.4,-0.005,-8.778,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,EspinozaEtAl2011
+J1803-2137,7.481283,50777(4),6.0,11.6,-2.0,7.4,-0.005,-7.677,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,"EspinozaEtAl2011,YuEtAl2013"
+J1803-2137,7.481283,50777(4),6.8,73.0,-2.5,7.4,-0.005,-8.474,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,YuEtAl2013
+J1803-2137,7.481283,53429(1),7.1,145.7,-2.2,7.4,-0.005,-8.775,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,"EspinozaEtAl2011,YuEtAl2013"
+J1803-2137,7.481283,55775(2),6.5,36.6,-2.1,7.4,-0.005,-8.176,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,LowerEtAl2021
+J1833-0827,11.724522,48051(4),7.2,183.4,-3.0,7.4,-1.5,-9.068,B_mf=(1-q_heal)/(2 pi nu tau_g); 2-fluid (Baym+1969/Alpar+1993); q_heal=Is/(Is+Ic) assumed,EspinozaEtAl2011

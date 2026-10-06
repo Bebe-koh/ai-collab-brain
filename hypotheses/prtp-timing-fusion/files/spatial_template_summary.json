@@ -1,0 +1,19 @@
+{
+  "question": "monopole vs HD for the +-350ns common swings",
+  "hd_dlnL_vs_null": 4178.4,
+  "hd_best_A_ns": ">3000 (unbounded, grid edge)",
+  "mono_dlnL_vs_null": 174.4,
+  "mono_best_A_ns": 181,
+  "drop_B1937_hd_minus_mono_dlnL": 231.9,
+  "drop_others_hd_minus_mono_dlnL": "2700-4000",
+  "B1937_empirical_vs_model_red_ns": [
+    3501.8,
+    300.9
+  ],
+  "B1855_empirical_vs_model_red_ns": [
+    608.6,
+    107.0
+  ],
+  "B1937xB1855_corr": 0.916,
+  "verdict": "HD win is misspecification (B1937 red-noise undermodeling at HD template peak); monopole excess is the robust signal; no GWB or ALDM detection"
+}

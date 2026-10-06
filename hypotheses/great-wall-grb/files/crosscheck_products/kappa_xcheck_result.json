@@ -1,0 +1,24 @@
+{
+  "cap": {
+    "ra": 215.94,
+    "dec": 49.51,
+    "radius_deg": 50.0
+  },
+  "validation": {
+    "xcorr_snr_100_400": 0.8635312412772391,
+    "mean_cl_kg": 6.519530677633674e-11
+  },
+  "kappa_cap": {
+    "mean_kappa": 0.020705550510024495,
+    "unmasked_pixels": 2015850
+  },
+  "controls": {
+    "n": 500,
+    "mean": 0.018682055920727896,
+    "sd": 0.0022571015916847607
+  },
+  "z_vs_controls": 0.8965013346103788,
+  "empirical_p": 0.178,
+  "caveat": "kappa map absolute normalization unverified (PR4 klm files); test is relative (z-score vs control caps), invariant under global rescaling.",
+  "runtime_s": 20.3
+}

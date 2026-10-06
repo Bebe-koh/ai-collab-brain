@@ -1,0 +1,18 @@
+{
+  "test": "primary_fixed_cap",
+  "n_redshift_rows": 734,
+  "n_in_cap": 198,
+  "n_obs_in_cap_zslice": 34,
+  "n_perm": 10000,
+  "null_mean": 22.6371,
+  "null_std": 3.845257285280141,
+  "p_value": 0.003,
+  "lookelsewhere": {
+    "test": "lookelsewhere_max_over_caps",
+    "n_cap_centers": 126,
+    "observed_max_count": 34,
+    "n_perm": 2000,
+    "null_max_mean": 26.0155,
+    "p_value": 0.0175
+  }
+}

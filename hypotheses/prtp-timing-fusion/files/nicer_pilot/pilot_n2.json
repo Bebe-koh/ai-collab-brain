@@ -1,0 +1,37 @@
+{
+ "systematics": {
+  "J0437-4715": {
+   "n": 57,
+   "lag1": 0.0395317243046355,
+   "rms_ns": 230394.3766831353
+  },
+  "J0030+0451": {
+   "n": 26,
+   "lag1": 0.8744603620611908,
+   "rms_ns": 2225381.996751653
+  },
+  "cross_corr": {},
+  "rate_anomaly": {
+   "J0437-4715": {
+    "med_rate": 1.5859375,
+    "anomaly_frac": 0.0
+   },
+   "J0030+0451": {
+    "med_rate": 0.6338112305854242,
+    "anomaly_frac": 0.0
+   }
+  }
+ },
+ "flagging": {
+  "n_dwells_tested": 34,
+  "htest_threshold_5fp": 21.698996321428382,
+  "fp_on_clean_sample": 0.029411764705882353,
+  "catch_flare": 1.0,
+  "catch_jitter": 0.35294117647058826,
+  "med_h_clean": 48.113962943248225,
+  "med_h_flare": 12.028490735812056,
+  "med_h_jitter": 32.420412790766704,
+  "note": "toy analytic corruption, not operational validation"
+ },
+ "N2_flagging_catch_below_85": true
+}

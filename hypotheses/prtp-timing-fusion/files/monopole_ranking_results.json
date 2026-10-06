@@ -1,0 +1,119 @@
+{
+ "n_epochs": 14,
+ "T_span_yr": 4.763860369609857,
+ "hd_validation_maxdev": 0.0051162231659282464,
+ "models": {
+  "M0_null": {
+   "k": 0,
+   "lnL": -266.0865832792679,
+   "bic": 532.1731665585359,
+   "dlnL_vs_null": 0.0,
+   "dBIC_vs_best_in_family": 343.73701586875086
+  },
+  "M_clock": {
+   "k": 1,
+   "lnL": -92.89854668008488,
+   "bic": 188.43615068978502,
+   "dlnL_vs_null": 173.18803659918305,
+   "sigma_c_ns": 181.0217909822314,
+   "dBIC_vs_best_in_family": 0.0
+  },
+  "M_smooth": {
+   "k": 1,
+   "lnL": -129.86448967344685,
+   "bic": 262.36803667650895,
+   "dlnL_vs_null": 136.22209360582107,
+   "log10_A": -10.579080469936585,
+   "gamma": 4.5,
+   "dBIC_vs_best_in_family": 73.93188598672393
+  },
+  "M_uldm": {
+   "k": 3,
+   "lnL": -91.79942352844829,
+   "bic": 191.51601904574235,
+   "dlnL_vs_null": 174.28715975081963,
+   "best_period_days": 2445.9640815819093,
+   "best_period_yr": 6.696684686055877,
+   "amplitude_ns": 344.7782984215015,
+   "phase_rad": 2.14132605805828,
+   "top3_peaks": [
+    {
+     "period_days": 2445.9640815819093,
+     "lnL": -91.79942352844829,
+     "amplitude_ns": 344.7782984215015
+    },
+    {
+     "period_days": 2301.715985107529,
+     "lnL": -92.81008194104565,
+     "amplitude_ns": 334.0171069820505
+    },
+    {
+     "period_days": 2599.2521784173673,
+     "lnL": -98.62207702545332,
+     "amplitude_ns": 345.58548749456605
+    }
+   ],
+   "note": "freq selected on 80-pt grid: effective dof > 3, true BIC penalty larger; best period exceeds data span (not a periodicity detection)",
+   "dBIC_vs_best_in_family": 3.0798683559573306
+  },
+  "E0_monopole": {
+   "k": 14,
+   "lnL": -1331.9705375217115,
+   "bic": 2720.295998713715,
+   "dBIC_vs_best_in_family": 343.809142491627
+  },
+  "E1_monopole_annual_dipole": {
+   "k": 20,
+   "lnL": -1147.9899112036926,
+   "bic": 2376.486856222088,
+   "dipole_amp_ns": 7637.81589386744,
+   "dipole_sin_ns": [
+    -3587.0386236665395,
+    -6696.262423602274,
+    -203.98987580884284
+   ],
+   "dipole_cos_ns": [
+    -156.70351085929087,
+    -192.8575101629524,
+    -725.32283585749
+   ],
+   "dipole_sin_ecllat_deg": -12.262432481806059,
+   "dipole_cos_ecllat_deg": -71.66917003921984,
+   "dBIC_vs_best_in_family": 0.0
+  }
+ },
+ "spatial_jackknife": {
+  "J0437-4715": {
+   "dlnL_E1_vs_E0": 179.28100151581566,
+   "n": 42
+  },
+  "J1909-3744": {
+   "dlnL_E1_vs_E0": 84.3478189491642,
+   "n": 42
+  },
+  "B1937+21": {
+   "dlnL_E1_vs_E0": 56.67760143214281,
+   "n": 42
+  },
+  "B1855+09": {
+   "dlnL_E1_vs_E0": 139.8095027829729,
+   "n": 42
+  }
+ },
+ "ranking_time_domain": [
+  "M_clock",
+  "M_uldm",
+  "M_smooth",
+  "M0_null"
+ ],
+ "ranking_spatial": [
+  "E1_monopole_annual_dipole",
+  "E0_monopole"
+ ],
+ "spatial_pair_jackknife": {
+  "drop_B1937_B1855_dlnL_E1vsE0": 6.9,
+  "drop_J0437_J1909_dlnL_E1vsE0": 73.3,
+  "all_dlnL_E1vsE0": 184.0,
+  "interpretation": "annual-dipole advantage lives entirely in the B1937/B1855 pair; same correlated wander that fooled the HD test"
+ }
+}

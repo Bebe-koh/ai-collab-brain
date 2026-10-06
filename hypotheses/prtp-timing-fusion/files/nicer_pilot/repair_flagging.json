@@ -1,0 +1,30 @@
+{
+ "n_photon_dwells": 15,
+ "thresholds": {
+  "H_T": 22.17177766138015,
+  "G_T": 7.970337599010288,
+  "S_T": 2.58
+ },
+ "FP_clean": 0.4666666666666667,
+ "clean_split_half_median": 1.7456397633239624,
+ "catch_flare": {
+  "h_only": 0.4666666666666667,
+  "gain_only": 0.4666666666666667,
+  "split_only": 0.4,
+  "combined": 0.6666666666666666
+ },
+ "catch_jitter": {
+  "h_only": 0.7333333333333333,
+  "gain_only": 0.6,
+  "split_only": 0.26666666666666666,
+  "combined": 0.7333333333333333
+ },
+ "pilot_H_only_catch_jitter": 0.35,
+ "J0030_obsid_flag": {
+  "n_obsids": 8,
+  "n_dwells": 26,
+  "flagged_obsids": 7,
+  "flagged_dwells": 23,
+  "frac_dwells": 0.8846153846153846
+ }
+}

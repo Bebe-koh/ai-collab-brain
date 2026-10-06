@@ -1,0 +1,21 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "psrpop_utmost-manu.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "mnras.bst"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "psrpop_utmost-manu.bib"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}
