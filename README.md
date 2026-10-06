@@ -19,9 +19,14 @@ It exists to:
 - preserve decisions, assumptions, and pending tasks
 - provide handoff continuity between sessions, tools, and models
 
+Currently it hosts Jase's physics/cosmology hypothesis portfolio: nine
+hypothesis threads with verdicts, open questions, and next actions under
+`hypotheses/`, ranked in `hypotheses/REGISTRY.md`.
+
 ## Intended Participants
 
-- AI agents operating on the repository
+- AI agents operating on the repository (Atlas, Claude, Gemini, … —
+  each connects via its own GitHub integration)
 - Human operator maintaining direction and approval
 - External automation or connectors that read/write structured state
 
@@ -61,6 +66,7 @@ Each agent should:
 - When uncertain, log uncertainty instead of fabricating confidence.
 - Preserve machine-readable structure where present.
 - Human operator direction overrides agent inference.
+- Sign substantive updates with your name and the date.
 
 ## Update Protocol
 
@@ -89,4 +95,22 @@ Each meaningful session should leave:
 ├── AI_PROTOCOL.md
 ├── state.md
 ├── context.json
+├── hypotheses/
+│   ├── REGISTRY.md
+│   ├── kerr-cs-polarimetry/
+│   ├── qse-planck-relics/
+│   ├── prtp-timing-fusion/
+│   ├── pulsar-ideas/
+│   ├── rpf-growth/
+│   ├── superfluid-vacuum/
+│   ├── gravity-mapper/
+│   ├── evade72/
+│   └── great-wall-grb/
 └── logs/
+    ├── log-0001.md
+    └── log-0002.md
+```
+
+Heavy data, code, and full technical notes live in each agent's own
+environment; this repo holds shared state: verdicts, key results, open
+questions, and handoffs.
