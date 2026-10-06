@@ -77,8 +77,10 @@ selection bias above. Calibrated: true 55.6° injections give 1.0-1.8
 (120 trials, 0 above 1.8); single-SPW jumps give median 3.6-8.6.
 Veto PASSES iff coincidence holds AND max|A_spw|/|Ā| ≤ 2.0.
 End-to-end: true-accept 1.000 at 55.6°; single-SPW-jump false-pass
-0.00-0.015 (X4947/X448f: 0.00 at all tested jump sizes; X4227: ≤0.08
-at 20°, 0.00 at 80°).
+0.00-0.06 over 100 trials per jump size (X4947: ≤0.02; X448f: ≤0.01;
+X4227: ≤0.06 at 20°, 0.00 at 80°). (2026-10-06: control re-run at
+trials=100 after a Perplexity audit catch — the function default was
+still 25; conclusion unchanged.)
 
 The Faraday λ² comparison is retained as a diagnostic only: with four
 SPWs spanning 213-229 GHz the λ² lever arm (16%) is too small to

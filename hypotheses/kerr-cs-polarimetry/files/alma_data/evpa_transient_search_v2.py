@@ -40,8 +40,11 @@ N_CAMP=500 and injection_recovery(trials=25) while the published
 methodology claimed 1000 campaigns and 100 trials, and the default file
 list omitted X4227. All three are corrected above (N_CAMP=1000,
 trials=100, X4227 included) so the code as committed now generates the
-published numbers. See v2_results/RUN_LOG.md for the exact invocation and
-v2_results/rerun_reconciliation_2026-10-06.md for the verification.
+published numbers. A later audit pass caught single_spw_jump_fpr still at
+trials=25; corrected to 100 the same day and the control re-run
+(false-pass 0.00-0.06, see repair note). See v2_results/RUN_LOG.md for
+the exact invocation and v2_results/rerun_reconciliation_2026-10-06.md
+for the verification.
 
 Method per contiguous segment:
   y(t) = c0 + c1*(t-tc) + A * s((t-t0)/w) + noise,  s(x)=0.5*(1+tanh(x))
@@ -361,7 +364,7 @@ def injection_recovery(seg_data, lam2, thr, amps, taus, trials=100, seed=7):
 
 
 def single_spw_jump_fpr(seg_data, lam2, thr, jumps=(20., 40., 80.),
-                        trials=25, seed=21):
+                        trials=100, seed=21):
     """Inject a jump into ONE SPW only; measure how often it passes the
     full pipeline incl. veto (should be ~0 for a good veto)."""
     rng = np.random.default_rng(seed)
