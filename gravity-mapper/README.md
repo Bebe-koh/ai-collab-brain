@@ -17,6 +17,8 @@ reveals an extremely sharp global minimum sitting exactly on the truth (MSE 9.7e
 radius error costs 3 orders of magnitude). The original 2,304-candidate brute-force grid stepped
 clean over it — the truth falls *between* grid points in mass, radius, and phase, all three.
 The grid's "winner" sits in a broad, shallow, phase-insensitive valley ~1e5× worse.
+(The contour plot is archived with the analyst; the landscape data can be regenerated via the
+diagnostic described in `degeneracy_note.md`.)
 
 The fitted ridge scaling (k = 0.36 ± 0.02) is 112σ from the tidal k=3 — definitively not a
 tidal degeneracy.
