@@ -1,0 +1,42 @@
+{
+  "scenario_id": "solar_catalog_seed_20260919_visible_3_hidden_2",
+  "method": "alternating_joint_refinement",
+  "stage_a": {
+    "mass_solar": 0.000285998084802861,
+    "radius_au": 9.58295629145655,
+    "phase_rad": 4.750738072146861,
+    "train_mse": 2.0639472121290063e-11
+  },
+  "alternation_rounds": 1,
+  "alt_train_mse": 9.5234890612259e-11,
+  "outer": {
+    "mass_solar": 1e-06,
+    "radius_au": 40.0,
+    "phase_rad": 3.4843863835984785
+  },
+  "inner": {
+    "mass_solar": 0.00028601466866572784,
+    "radius_au": 9.591720324855249,
+    "phase_rad": 4.75232706310025
+  },
+  "joint_train_mse": 3.0839916082684874e-11,
+  "one_source_holdout_mse": 6.396433732227985e-11,
+  "two_source_holdout_mse": 9.001935472348972e-10,
+  "two_source_improvement_fraction": -13.073366268133677,
+  "two_source_accepted": false,
+  "per_body_errors": [
+    {
+      "truth_id": "mercury",
+      "mass_relative_error": 1721.8761440017338,
+      "radius_relative_error": 23.778404352506456,
+      "phase_absolute_error": 1.7308582440793367
+    },
+    {
+      "truth_id": "saturn",
+      "mass_relative_error": 0.9965010496850943,
+      "radius_relative_error": 3.174232463005865,
+      "phase_absolute_error": 1.2656136164015215
+    }
+  ],
+  "recovered": false
+}
