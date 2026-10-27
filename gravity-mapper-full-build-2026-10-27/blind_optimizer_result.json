@@ -1,0 +1,20 @@
+{
+  "scenario_id": "solar_catalog_seed_20260919_visible_3_hidden_2",
+  "method": "coarse_grid_top12_plus_nelder_mead",
+  "coarse_best_train_mse": 2.9749387434709657e-06,
+  "refined_train_mse": 2.0639472121290063e-11,
+  "refined_from_coarse_rank": 7,
+  "refinement_iters": 86,
+  "selected_mass_solar": 0.000285998084802861,
+  "selected_radius_au": 9.58295629145655,
+  "selected_phase_rad": 4.750738072146861,
+  "holdout_improvement_fraction": 0.9999998633540832,
+  "accepted": true,
+  "truth_mass_solar": 0.0002858,
+  "truth_radius_au": 9.5826,
+  "truth_phase_rad": 4.75,
+  "mass_relative_error": 0.0006930888833484809,
+  "radius_relative_error": 3.7181084105708355e-05,
+  "phase_absolute_error": 0.0007380721468610574,
+  "recovered": true
+}
