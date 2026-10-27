@@ -1,0 +1,147 @@
+{
+  "plan": "joint_prototype_plan_2026-10-26.md",
+  "d11": {
+    "rel_rms_max": 0.0001,
+    "rel_a_max": 0.0001,
+    "abs_e_max": 0.0001
+  },
+  "d10_scan_offsets_decades": [
+    0,
+    -1,
+    1,
+    -2,
+    2
+  ],
+  "d10_bounds_decades": 3,
+  "live_rom_contact": false,
+  "existing_files_modified": [],
+  "rom_closure_imported": false,
+  "hardware": "Linux VM (this session)",
+  "k0_proof": {
+    "reference": {
+      "success": true,
+      "rms_au": 6.552921599510211e-05,
+      "a": 40.00033825470792,
+      "e": 0.10000539776158447,
+      "nfev": 28,
+      "best_start": 0,
+      "wall_s": 53.96390467400033
+    },
+    "joint": {
+      "success": true,
+      "rms_au": 6.552921599510211e-05,
+      "a": 40.00033825470792,
+      "e": 0.10000539776158447,
+      "nfev": 28,
+      "best_start": 0,
+      "wall_s": 54.09644237399971
+    },
+    "rel_rms_diff": 0.0,
+    "rel_a_diff": 0.0,
+    "abs_e_diff": 0.0,
+    "state_max_abs_diff": 0.0,
+    "state_diff_note": "reported verbatim, not gated (see plan)",
+    "pass": true
+  },
+  "k1_demo": {
+    "truth": {
+      "mass_solar": 0.0001,
+      "radius_au": 8.0,
+      "phase_rad": 1.0
+    },
+    "inventor": {
+      "mass_solar": 1e-05,
+      "radius_au": 8.0,
+      "phase_rad": 1.0
+    },
+    "full_fit": {
+      "success": true,
+      "rms_au": 6.541157806986436e-05,
+      "fitted_mass_solar": 9.846175782370942e-05,
+      "fitted_logmass": -4.006732415096652,
+      "mass_rel_error": 0.015382421762905886,
+      "logmass_error_decades": -0.006732415096651678,
+      "nfev": 151,
+      "best_start": 0,
+      "wall_s": 235.03283338599977
+    },
+    "checker": {
+      "verdict": "PASS",
+      "gates": {
+        "converged": true,
+        "physical": true,
+        "noise_consistent": true,
+        "holdout_ok": true
+      },
+      "train_rms_au": 6.284978113561247e-05,
+      "holdout_rms_au": 8.763463788367829e-05,
+      "null_holdout_rms_au": 0.0007742660652240983,
+      "holdout_mse_ratio": 78.06005585096727,
+      "sigma_au": 7.04e-05,
+      "full_fit_rms_au": 6.541157806986436e-05,
+      "full_fit_rms_note": "display only; never gates",
+      "start_rule": "strict",
+      "spec_id": "joint:k=1;t_ref=5.0;rtol=1e-09;atol=1e-11;c0:r=8.0,phase=1.0,inv_mass=1e-05",
+      "fitted_masses_solar": [
+        9.846175782370942e-05
+      ],
+      "fitted_mass_uncertainties": null,
+      "mass_uncertainty_note": "not available from LM driver",
+      "joint_refit_success": true,
+      "null_refit_success": true,
+      "joint_refit_wall_s": 187.18795757299995,
+      "null_refit_wall_s": 172.59642639199956,
+      "reasons": []
+    },
+    "checker_wall_s": 362.4917270189999,
+    "removal": {
+      "method": "refit (null model, same partition); frozen removal prohibited",
+      "null_refit_success": true,
+      "joint_refit_success": true,
+      "claim": "contribution_supported"
+    },
+    "pragmatic_variant_run": false,
+    "pragmatic_note": "not run; strict refit is the acceptance path"
+  },
+  "cost_table": {
+    "k0_fit": {
+      "success": true,
+      "rms_au": 6.552921599510211e-05,
+      "a": 40.00033825470792,
+      "e": 0.10000539776158447,
+      "nfev": 28,
+      "best_start": 0,
+      "wall_s": 54.09644237399971
+    },
+    "k0_reference_fit_wall_s": 53.96390467400033,
+    "k1_full_fit_wall_s": 235.03283338599977,
+    "k1_full_fit_nfev": 151,
+    "k1_checker_wall_s": 362.4917270189999,
+    "k1_joint_refit_wall_s": 187.18795757299995,
+    "k1_null_refit_wall_s": 172.59642639199956,
+    "predict_vs_k": [
+      {
+        "k": 0,
+        "predict_wall_s": 1.3998985559992434,
+        "n_predict_calls": 1
+      },
+      {
+        "k": 1,
+        "predict_wall_s": 1.4064578489997075,
+        "n_predict_calls": 1
+      },
+      {
+        "k": 2,
+        "predict_wall_s": 1.477579551999952,
+        "n_predict_calls": 1
+      },
+      {
+        "k": 3,
+        "predict_wall_s": 1.4249803459997565,
+        "n_predict_calls": 1
+      }
+    ],
+    "predict_note": "single predict per k (n=1); full k=2/3 fits NOT run (out of demo scope), no extrapolation",
+    "nfev_note": "nfev is the winning start only, as in fit_state"
+  }
+}
