@@ -1,0 +1,149 @@
+{
+ "inner_epicycle": {
+  "pattern": {
+   "m_solar": 2.0765531840373505e-06,
+   "m_earth": 0.69,
+   "r_au": 3.1977,
+   "phase_rad": 2.7917,
+   "tracker_posterior": 1.0,
+   "holdout_improvement": 4.03,
+   "dBIC": 901.0
+  },
+  "label": "unmodeled main-belt mass (epicycle fit)",
+  "rejection_reason": "Per-tracer coherence FAIL: improved Ceres 5.35x and Vesta 6.41x but worsened Earth (0.98x) and Mars (0.84x). A real body must perturb all tracers coherently. Mass (0.69 M_earth at 3.2 AU) observationally ruled out. Attributed to unmodeled Pallas/Hygiea/diffuse belt mass.",
+  "attributed_posterior_real": 0.0,
+  "date": "2026-10-13",
+  "source": "full_data_hunt (residual_hunt.py)",
+  "followup_2026_10_13": "Re-run with Mercury 2-day ephemeris (moon_fix re-run): candidate NOT reproduced. Grid best 1.00x null; all 15 refined dBIC negative (-18.5 to -21); null posterior 62.8%. The v1 4.03x/dBIC+901 fit was artifact-assisted: the fitter was grabbing the Mercury-spline artifact plus unmodeled belt mass jointly against the noisier v1 null. With the artifact gone, the belt-mass signal alone cannot beat the null in this grid. Clean null stands. See moon_fix_note.md."
+ },
+ "tno_indirect_artifact": {
+  "pattern": {
+   "m_solar": 3.5895198738652096e-05,
+   "m_earth": 12.0,
+   "r_au": 11.0676,
+   "phase_rad": 3.9441,
+   "phase_deg": 226.0,
+   "holdout_improvement": 15.29,
+   "dBIC": 33267.4
+  },
+  "label": "indirect-term artifact chasing Mercury 30-day spline bias (RESOLVED)",
+  "rejection_reason": "Candidate at 226 deg so its indirect acceleration (-mu_c r_c/|r_c|^3) points (0.695,0.719,0), mostly +y. It fits the common-mode +y systematic via the uniform indirect term, not via planetary direct gravity. 12 M_earth at 11.1 AU (between Saturn and Uranus) would be easily visible. Rejected before tracker scoring by indirect-term coherence test.",
+  "attributed_posterior_real": 0.0,
+  "date": "2026-10-13",
+  "source": "full_data_hunt (tno_hunt.py)",
+  "root_cause": "Mercury sampled every 30 d for an 88-d, e=0.206 orbit: cubic spline cut corners (-7.5% mean radius bias -> +22% 1/r^3 pull), injecting a fake constant 1.07e-5 AU/yr^2 indirect acceleration along Mercury's perihelion direction. Proven by independent SPICE+DE440 check (96% magnitude, cos(dir)=+1.0000 with Mercury perihelion). The 12 M_earth/11 AU candidate was the fitter fitting this artifact via the uniform indirect term.",
+  "resolution": "Mercury re-pulled from Horizons at 2-day cadence (mercury_fine.csv, 2740 rows); tno_hunt.py/residual_hunt.py loaders now prefer mercury_fine.csv. Verified: indirect-term bias drops to 2.4e-8 AU/yr^2 (440x). V2 hunt re-run 2026-10-13; see tno_hunt_v2_note.md.",
+  "date_resolved": "2026-10-13"
+ },
+ "plus_y_systematic": {
+  "pattern": {
+   "form": "uniform acceleration",
+   "magnitude_au_yr2": 1.14e-05,
+   "direction_ecliptic_j2000": [
+    0.227,
+    0.972,
+    0.056
+   ],
+   "growth": "quadratic (4.02x last/mid)",
+   "n_tnos": 74,
+   "alignment_|m|": 0.9998
+  },
+  "label": "unexplained common-mode systematic (NOT a body)",
+  "rejection_reason": "Would require ~0.11 M_sun at 1000 AU (a visible star) if planetary. Ruled out as planetary. Cause under investigation (see plus_y_systematic_note.md). Must be resolved before TNOs can constrain Planet Nine.",
+  "attributed_posterior_real": 0.0,
+  "date": "2026-10-13",
+  "source": "full_data_hunt (tno_hunt.py)"
+ },
+ "moon_sampling_check": {
+  "pattern": {
+   "form": "suspected 30-day sampling aliasing of the 27.3-day lunar orbit in EMB construction",
+   "moon_file_old": "moon_ephemeris_vel.csv (183 rows, 30d)",
+   "moon_file_new": "moon_fine.csv (2740 rows, 2d, COMMAND='301', CENTER='500@10')"
+  },
+  "label": "NOT a bug: investigated, measured effect exactly 0.0 AU",
+  "finding": "The Moon's position/velocity are used ONLY to build the Earth-Moon barycenter on the planet epoch grid, from exact Horizons samples at those epochs. The lunar orbit itself is never splined; only the (smooth, Sun+planet-driven) EMB trajectory is interpolated. Unlike Mercury -- whose 30-day positions WERE splined for the indirect term -- no aliasing is possible here. Re-pulled Moon at 2-day cadence and interpolated onto the planet grid: EMB position and velocity bit-identical (max |d| = 0.0 AU, 0.0 AU/yr). Exact-zero explained: 30 = 15 x 2, so the 2-day grid contains the 30-day nodes (4-decimal rounding), and np.interp returns exact samples at coincident nodes.",
+  "resolution": "Loaders in real_data/residual_hunt.py and real_data/tno_hunt.py now prefer moon_fine.csv, interpolated onto the planet epoch grid (same pattern as the Mercury fix). Originals untouched. No-op safeguard: keeps the loader robust if the Moon is ever used at sub-orbital cadence.",
+  "attributed_posterior_real": 0.0,
+  "date": "2026-10-13",
+  "source": "moon sampling investigation (see moon_fix_note.md)"
+ },
+ "stacked_84d_wiggle": {
+  "label": "84-day stacked-residual oscillation from 4-decimal time rounding (RESOLVED)",
+  "pattern": {
+   "period_days": 84.4,
+   "stacked_84d_band_rms_km": 390,
+   "per_tno_84d_rms_km": "2100-3400",
+   "peak_km": 1161,
+   "coherence": "partial (median per-TNO corr +0.56)"
+  },
+  "source": "tno_hunt v2 null (74 TNOs)",
+  "date": "2026-10-13",
+  "date_resolved": "2026-10-13",
+  "attributed_posterior_real": 0.0,
+  "root_cause": "CSV time_years rounded to 4 decimals. Null trajectory (true time base) sampled at rounded times via np.interp -> per-epoch position error -v*dt (dt up to +/-26 min). Rounding error dt_k oscillates with period exactly 84.4 d (beat between 30-day steps and 4th-decimal truncation: 0.0001/0.0000355 ~ 2.82 steps). Stacked: -dt_k * mean_TNO_velocity. Predicted vs observed stacked: x corr +0.964, z +0.960 (predicted RMS 453 km vs observed 556 km).",
+  "rejection_reason": "Not a physical signal: period matches the rounding-beat arithmetic exactly; explained quantitatively by the -v*dt model; vanishes (390->5 km, 78x) when exact times are used.",
+  "resolution": "All CSV time columns rewritten with exact step grids (t=k*30/365.25 or k*2/365.25; backups *.bak); pull scripts fixed (round->repr). tno_hunt.py re-run (v3): 84-day gone, null holdout RMS 3282->414 km (8x). See stacked_wiggle_note.md."
+ },
+ "inner_time_rounding_confirmation": {
+  "label": "Time-rounding -v\u00b7dt artifact confirmed in inner hunt (RESOLVED)",
+  "pattern": {
+   "null_train_mse": {
+    "v2_rounded": 6.9496e-09,
+    "v3_exact": 3.4518e-10,
+    "improvement": 20.1
+   },
+   "null_holdout_mse": {
+    "v2_rounded": 7.2221e-09,
+    "v3_exact": 3.5332e-10,
+    "improvement": 20.4
+   },
+   "predicted_vdt_rms_km": 12230,
+   "observed_removed_rms_km": 12157,
+   "match": "0.6%",
+   "dt_period_days": 84.5,
+   "dt_rms_s": 911,
+   "per_tracer_pred_km": {
+    "Ceres": 9388,
+    "Earth": 15662,
+    "Mars": 12689,
+    "Vesta": 10190
+   }
+  },
+  "source": "residual_hunt v3 (Ceres/Earth/Mars/Vesta, exact time grids)",
+  "date": "2026-10-13",
+  "date_resolved": "2026-10-13",
+  "attributed_posterior_real": 0.0,
+  "root_cause": "Same round(t,4) time-labeling bug as stacked_84d_wiggle, ~10x larger for inner tracers (faster). Predicted -v\u00b7dt RMS matches observed null improvement to 0.6%. v1 0.69-Mearth@3.2AU candidate fully accounted for (Mercury-spline artifact + time-rounding noise); stays dead in v3 (grid best 1.01x, all dBIC<0).",
+  "note": "inner_hunt_v3_note.md"
+ },
+ "inner_planet_spline_dc_bias": {
+  "label": "Inner-planet 30-day spline DC bias + P_fine linear-interp bias (RESOLVED)",
+  "pattern": {
+   "y_drift_km": {
+    "v3_30day": 1193,
+    "fine_2day_linear": 500,
+    "fine_2day_cubic": 13
+   },
+   "implied_y_accel_km_yr2": {
+    "v3_30day": 6.93,
+    "fine_2day_linear": 4.39,
+    "fine_2day_cubic": 0.1
+   },
+   "null_holdout_rms_km": {
+    "v3_30day": 540,
+    "fine_2day_linear": 220,
+    "fine_2day_cubic": 6
+   },
+   "phantom_fitted": {
+    "v3": "2.36e-07 M_earth @ 9.7 AU, dBIC +29288 (systematic, not real)",
+    "post_cubic_fix": "7.14e-09 M_sun @ 31.2 AU, dBIC +7758 (unmodeled belt mass, not a planet)"
+   }
+  },
+  "source": "TNO null (74 TNOs); isolation via null_only.py (fine/coarse/spice rail modes)",
+  "date": "2026-10-13",
+  "date_resolved": "2026-10-13",
+  "attributed_posterior_real": 0.0,
+  "root_cause": "Two layers: (1) 30-day cubic-spline rails for Venus/Earth inadequate (7.5 samples/Venus orbit) \u2014 same artifact class as Mercury 30-day problem; fixed by 2-day re-pull (1193->500 km). (2) DOMINANT: P_fine + linear interpolation in accel() introduced ~4.4 km/yr^2 DC bias in y; direct cubic-spline evaluation eliminates it (500->13 km). The gm_fix_note.md 30-day DC diagnosis conflated the two layers. Fix: 2-day rails + direct spline eval in tno_hunt.py, residual_hunt.py, tno_hunt_40yr.py.",
+  "lesson": "Never linearly interpolate precomputed planet positions in the force loop; evaluate the cubic splines directly. Rail sampling (2-day) and evaluation (cubic) are separate concerns \u2014 test them separately."
+ }
+}
