@@ -1,0 +1,10 @@
+{
+ "scenario_id": "distant_heavy",
+ "seed": 20261013,
+ "withheld_truth": {
+  "m_msun": 0.0001,
+  "r_au": 100.0,
+  "phase_rad": 1.0
+ },
+ "note": "SEALED: open only after inference (score step)."
+}
