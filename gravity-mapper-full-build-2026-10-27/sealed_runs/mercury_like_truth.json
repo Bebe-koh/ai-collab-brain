@@ -1,0 +1,10 @@
+{
+ "scenario_id": "mercury_like",
+ "seed": 20261013,
+ "withheld_truth": {
+  "m_msun": 1.6e-07,
+  "r_au": 5.0,
+  "phase_rad": 2.0
+ },
+ "note": "SEALED: open only after inference (score step)."
+}
