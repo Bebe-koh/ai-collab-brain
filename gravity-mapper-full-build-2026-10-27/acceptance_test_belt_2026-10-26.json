@@ -1,0 +1,256 @@
+{
+  "proposal": "acceptance_rule_proposal_2026-10-26.md (approved)",
+  "environment": {
+    "python": "3.12.3",
+    "numpy": "1.26.4",
+    "scipy": "1.11.4",
+    "rebound": "5.2.2",
+    "platform": "Linux-7.0.0-39-generic-x86_64-with-glibc2.39"
+  },
+  "preflight": {
+    "rom_closure_lean_present": true,
+    "rails_cache_present": true,
+    "rebound_version": "5.2.2",
+    "save_route_writable": true
+  },
+  "case": {
+    "dataset": "belt (TRACER + BIG3)",
+    "known_inventory": "BIG3[:2]",
+    "candidate": "BIG3[2]",
+    "seed": 0
+  },
+  "spline_a": {
+    "candidate_rms": 6.55292159009153e-05,
+    "candidate_cost": 3.864670322929892e-07,
+    "candidate_nfev": 13,
+    "candidate_best_start": 0,
+    "candidate_success": true,
+    "candidate_state": [
+      -39.00389049964015,
+      -3.094676246994217,
+      3.0729090016240708,
+      0.17548482102934554,
+      -0.9959698282208659,
+      -0.04574287929146832
+    ],
+    "checker_verdict": "PASS",
+    "checker_gates": {
+      "converged": true,
+      "physical": true,
+      "noise_consistent": true,
+      "holdout_ok": true
+    },
+    "baseline_holdout": 7.789467262909265e-05,
+    "candidate_holdout": 7.789450463879548e-05,
+    "mse_ratio": 1.0000043132818959,
+    "decision": "abstained",
+    "decision_reason": null,
+    "t_baseline_s": 89.80030512809753,
+    "t_candidate_s": 86.83328294754028
+  },
+  "spline_b": {
+    "candidate_rms": 6.55292159009153e-05,
+    "candidate_cost": 3.864670322929892e-07,
+    "candidate_nfev": 13,
+    "candidate_best_start": 0,
+    "candidate_success": true,
+    "candidate_state": [
+      -39.00389049964015,
+      -3.094676246994217,
+      3.0729090016240708,
+      0.17548482102934554,
+      -0.9959698282208659,
+      -0.04574287929146832
+    ],
+    "checker_verdict": "PASS",
+    "checker_gates": {
+      "converged": true,
+      "physical": true,
+      "noise_consistent": true,
+      "holdout_ok": true
+    },
+    "baseline_holdout": 7.789467262909265e-05,
+    "candidate_holdout": 7.789450463879548e-05,
+    "mse_ratio": 1.0000043132818959,
+    "decision": "abstained",
+    "decision_reason": null,
+    "t_baseline_s": 89.53107690811157,
+    "t_candidate_s": 87.2469048500061
+  },
+  "analytic": {
+    "candidate_rms": 6.55292159009153e-05,
+    "candidate_cost": 3.864670322929892e-07,
+    "candidate_nfev": 13,
+    "candidate_best_start": 0,
+    "candidate_success": true,
+    "candidate_state": [
+      -39.00389049964015,
+      -3.094676246994217,
+      3.0729090016240708,
+      0.17548482102934554,
+      -0.9959698282208659,
+      -0.04574287929146832
+    ],
+    "checker_verdict": "PASS",
+    "checker_gates": {
+      "converged": true,
+      "physical": true,
+      "noise_consistent": true,
+      "holdout_ok": true
+    },
+    "baseline_holdout": 7.789467262909265e-05,
+    "candidate_holdout": 7.789450463879548e-05,
+    "mse_ratio": 1.0000043132818959,
+    "decision": "abstained",
+    "decision_reason": null,
+    "t_baseline_s": 0.0,
+    "t_candidate_s": 70.2578821182251
+  },
+  "control": {
+    "verdicts_match": true,
+    "gates_match": true,
+    "decisions_match": true,
+    "ratio_rel_diff": 0.0,
+    "candidate_rms_rel_diff": 0.0,
+    "wall_s": {
+      "spline_a": 176.65021562576294,
+      "spline_b": 176.79461479187012
+    },
+    "pass": true
+  },
+  "q1": {
+    "states": {
+      "spline_refit_state": {
+        "spline_model": {
+          "holdout_rms": 7.789450463879548e-05,
+          "mse_ratio": 1.0000043132818959
+        },
+        "analytic_model": {
+          "holdout_rms": 7.789450463879548e-05,
+          "mse_ratio": 1.0000043132818959
+        },
+        "residual_max_diff": 0.0,
+        "ratio_rel_diff": 0.0,
+        "pass": true
+      },
+      "analytic_refit_state": {
+        "spline_model": {
+          "holdout_rms": 7.789450463879548e-05,
+          "mse_ratio": 1.0000043132818959
+        },
+        "analytic_model": {
+          "holdout_rms": 7.789450463879548e-05,
+          "mse_ratio": 1.0000043132818959
+        },
+        "residual_max_diff": 0.0,
+        "ratio_rel_diff": 0.0,
+        "pass": true
+      },
+      "spline_candfit_state": {
+        "spline_model": {
+          "holdout_rms": 6.79961748840996e-05,
+          "mse_ratio": 1.3123405503961971
+        },
+        "analytic_model": {
+          "holdout_rms": 6.79961748840996e-05,
+          "mse_ratio": 1.3123405503961971
+        },
+        "residual_max_diff": 0.0,
+        "ratio_rel_diff": 0.0,
+        "pass": true
+      },
+      "analytic_candfit_state": {
+        "spline_model": {
+          "holdout_rms": 6.79961748840996e-05,
+          "mse_ratio": 1.3123405503961971
+        },
+        "analytic_model": {
+          "holdout_rms": 6.79961748840996e-05,
+          "mse_ratio": 1.3123405503961971
+        },
+        "residual_max_diff": 0.0,
+        "ratio_rel_diff": 0.0,
+        "pass": true
+      }
+    },
+    "missing_refit_states": [],
+    "pass": true
+  },
+  "q2": {
+    "spline_ratio": 1.0000043132818959,
+    "analytic_ratio": 1.0000043132818959,
+    "threshold_distance_d": 4.313281895873544e-06,
+    "score_bound_0.1d": 4.3132818958735444e-07,
+    "ratio_abs_diff": 0.0,
+    "ratio_pass": true,
+    "candidate_rms_rel_diff": 0.0,
+    "rms_pass": true,
+    "verdicts_match": true,
+    "gates_match": true,
+    "decisions_match": true,
+    "crossing_1.0": false,
+    "crossing_1.2": false,
+    "spline_on_threshold": false,
+    "wall_s": {
+      "spline_a": 176.65021562576294,
+      "analytic": 70.25792789459229
+    },
+    "boundary_fail": false,
+    "pass": true
+  },
+  "checker_refits": [
+    {
+      "run": "spline_a",
+      "n_extra": 3,
+      "state": [
+        -39.00389684616368,
+        -3.0946618663991843,
+        3.072894451883014,
+        0.17548655618686074,
+        -0.9959731139416269,
+        -0.0457386780170512
+      ],
+      "rms": 6.348018352043279e-05,
+      "cost": 2.538732230866333e-07,
+      "nfev": 37,
+      "best_start": 0,
+      "success": true
+    },
+    {
+      "run": "spline_b",
+      "n_extra": 3,
+      "state": [
+        -39.00389684616368,
+        -3.0946618663991843,
+        3.072894451883014,
+        0.17548655618686074,
+        -0.9959731139416269,
+        -0.0457386780170512
+      ],
+      "rms": 6.348018352043279e-05,
+      "cost": 2.538732230866333e-07,
+      "nfev": 37,
+      "best_start": 0,
+      "success": true
+    },
+    {
+      "run": "analytic",
+      "n_extra": 3,
+      "state": [
+        -39.00389684616368,
+        -3.0946618663991843,
+        3.072894451883014,
+        0.17548655618686074,
+        -0.9959731139416269,
+        -0.0457386780170512
+      ],
+      "rms": 6.348018352043279e-05,
+      "cost": 2.538732230866333e-07,
+      "nfev": 37,
+      "best_start": 0,
+      "success": true
+    }
+  ],
+  "overall_pass": true,
+  "notes": "Termination status/message unavailable from fit_state (LM sol.status/message dropped); counts, cost, runtime, and environment recorded instead. No threshold, default, or production state changed. Original failed comparison not relabeled. Final untouched partition not used."
+}
