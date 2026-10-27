@@ -1,0 +1,21 @@
+{
+  "rails_cache": "/home/hatch/workspace/goals/gravity-mapper-hidden-body-inference/hidden_files/sealed_runs/planet_rails.npz",
+  "A_scalar_vs_array_maxdiff_AU": 0.0,
+  "A_scalar_time_s": 0.09612778999962757,
+  "A_array_time_s": 0.0007540520000475226,
+  "A_lookup_linear_maxdiff_AU": 9.671640383729363e-05,
+  "A_lookup_time_s": 0.001291980000132753,
+  "A_lookup_vs_floors": "lookup error vs 1e-7 AU fitter floor and 7.04e-5 AU ROM floor: see maxdiff",
+  "B_single_vs_batched_maxdiff_AU_per_yr2": 2.7755575615628914e-17,
+  "B_single_time_s": 0.003429800000048999,
+  "B_batched_time_s": 0.00019190799957868876,
+  "C_nearest_cos_sin_maxerr": 0.0007642579624387949,
+  "C_linear_cos_sin_maxerr": 3.7489562543235877e-07,
+  "C_position_err_at_5AU_nearest_AU": 0.0038212898121939743,
+  "C_position_err_at_5AU_linear_AU": 1.8744781271617939e-06,
+  "C_live_time_s": 0.0002579870006229612,
+  "C_nearest_time_s": 2.357500034122495e-05,
+  "C_linear_time_s": 0.0002339510001547751,
+  "D_batched_reuse_maxdiff_vs_batched": 0.0,
+  "D_batched_reuse_time_s": 0.00019179799983248813
+}
