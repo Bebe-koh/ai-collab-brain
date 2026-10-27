@@ -1,0 +1,9 @@
+{
+ "scenario_id": "null_control",
+ "recovered": true,
+ "detail": {
+  "map_posterior_null": 0.9999999999708962,
+  "criterion": "MAP hypothesis is null (no false positive)"
+ },
+ "scored_against_sealed_truth": true
+}
