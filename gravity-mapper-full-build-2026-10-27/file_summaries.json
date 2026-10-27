@@ -1,0 +1,2898 @@
+{
+ "generated": "2026-10-06",
+ "source": "gravity-mapper-code_0_4t12.zip (Jase's MacBook Air upload), extracted to hidden_files/source_upload/",
+ "totals": {
+  "py_files": 67,
+  "py_lines": 6660
+ },
+ "files": [
+  {
+   "path": "adapters/__init__.py",
+   "lines": 1,
+   "purpose": "Empty package marker; exports nothing.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "adapters/benchmark_adapter.py",
+   "lines": 51,
+   "purpose": "CSV benchmark-result utilities: load_csv_rows parses a CSV into dict rows; summarize_hidden_mass_csv computes row count, per-column means over numeric columns, and recovered/pass flag counts for columns whose names contain 'recover' or 'passed'.",
+   "key_symbols": [
+    {
+     "name": "load_csv_rows",
+     "kind": "function",
+     "one_line": "Reads a CSV to a list of dicts; raises FileNotFoundError if missing."
+    },
+    {
+     "name": "summarize_hidden_mass_csv",
+     "kind": "function",
+     "one_line": "Returns rows count, mean_values, recovered_flags tallies, and column names."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "recovered truth tokens",
+     "value": "1/true/yes/y/pass/ok",
+     "context": "case-insensitive cell values counted as recovered=true"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "engine/__init__.py",
+   "lines": 7,
+   "purpose": "Package entry point re-exporting the engine's public API: InferenceEngine, evaluate_prediction, DEFAULT_STAGE_LADDER, StructureRegistry, RunLogger, and promote_structure.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [
+    "engine.core",
+    "engine.evaluator",
+    "engine.stages",
+    "engine.registry",
+    "engine.logging",
+    "engine.patterns"
+   ],
+   "cli": null
+  },
+  {
+   "path": "engine/benchmark_ingest.py",
+   "lines": 16,
+   "purpose": "Bridges benchmark CSV results into the engine's run log: summarizes a results CSV via adapters.benchmark_adapter.summarize_hidden_mass_csv and persists the payload as a timestamped JSON log under runs/.",
+   "key_symbols": [
+    {
+     "name": "ingest_benchmark_csv",
+     "kind": "function",
+     "one_line": "Summarizes a benchmark CSV and writes a named run log, returning the payload with the saved log path."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "run_dir default",
+     "value": "runs",
+     "context": "default directory for run logs"
+    }
+   ],
+   "imports_from_project": [
+    "engine.logging",
+    "adapters.benchmark_adapter"
+   ],
+   "cli": null
+  },
+  {
+   "path": "engine/core.py",
+   "lines": 25,
+   "purpose": "Placeholder inference engine: a dataclass holding a version string and a list of accepted structures, with add_structure/snapshot accessors and a stub infer() that returns placeholder status.",
+   "key_symbols": [
+    {
+     "name": "InferenceEngine",
+     "kind": "class",
+     "one_line": "Dataclass holding version and accepted_structures; infer() is an unimplemented stub."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "version default",
+     "value": "0.2.0",
+     "context": "engine version string recorded in snapshots"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "engine/evaluator.py",
+   "lines": 38,
+   "purpose": "Scores a predicted-vs-truth structure: computes mass/radius percent errors and x/y/z absolute errors, and passes only if mass error is below 2.5% and radius error below 0.5%.",
+   "key_symbols": [
+    {
+     "name": "pct_err",
+     "kind": "function",
+     "one_line": "Absolute percent error; falls back to absolute difference when truth is zero."
+    },
+    {
+     "name": "evaluate_prediction",
+     "kind": "function",
+     "one_line": "Builds metrics dict and pass/fail verdict with failure reasons."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "mass pass threshold",
+     "value": 2.5,
+     "context": "max allowed mass_error_pct for pass"
+    },
+    {
+     "name": "radius pass threshold",
+     "value": 0.5,
+     "context": "max allowed radius_error_pct for pass"
+    },
+    {
+     "name": "missing-metric sentinel",
+     "value": 999,
+     "context": "default metric value that guarantees fail when a field is absent"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "engine/logging.py",
+   "lines": 16,
+   "purpose": "Timestamped JSON run logger: RunLogger(run_dir) writes payloads to <run_dir>/YYYYMMDDTHHMMSSZ_<name>.json, creating the directory if needed.",
+   "key_symbols": [
+    {
+     "name": "RunLogger",
+     "kind": "class",
+     "one_line": "Writes dict payloads to UTC-timestamped JSON files in run_dir."
+    }
+   ],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "engine/patterns.py",
+   "lines": 24,
+   "purpose": "Promotes a list of candidate points to a structure hypothesis: returns a 'ring' when at least 4 radii cluster within 15% fractional spread, otherwise a 'compact_cluster'.",
+   "key_symbols": [
+    {
+     "name": "promote_structure",
+     "kind": "function",
+     "one_line": "Classifies candidate points as ring vs compact_cluster by radial clustering."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "min radii for ring test",
+     "value": 4,
+     "context": "required number of radii before ring classification is attempted"
+    },
+    {
+     "name": "ring spread fraction",
+     "value": 0.15,
+     "context": "max fractional spread (spread/|mean|) for ring acceptance"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "engine/registry.py",
+   "lines": 15,
+   "purpose": "In-memory registry of accepted structures with add/all/by_type lookup.",
+   "key_symbols": [
+    {
+     "name": "StructureRegistry",
+     "kind": "class",
+     "one_line": "Append-only list of structure dicts with type filtering."
+    }
+   ],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "engine/stage_gate.py",
+   "lines": 139,
+   "purpose": "Stage-gate evaluator for the four local-validation benchmarks: loads the latest runs/*_benchmark_<name>.json log per stage, checks the recovered ratio and mean error metrics against PASS_RULES, and recommends advancing to blind_inner_solar_system or staying in local validation.",
+   "key_symbols": [
+    {
+     "name": "PASS_RULES",
+     "kind": "constant",
+     "one_line": "Per-benchmark pass thresholds for recovery ratio and mean errors."
+    },
+    {
+     "name": "STAGE_ORDER",
+     "kind": "constant",
+     "one_line": "Ordered local-validation ladder: phase -> two-body -> refinement -> eccentric."
+    },
+    {
+     "name": "evaluate_stage_gate",
+     "kind": "function",
+     "one_line": "Evaluates all stages from run logs and returns all_pass/next_stage/results."
+    },
+    {
+     "name": "check_thresholds",
+     "kind": "function",
+     "one_line": "Applies PASS_RULES to one benchmark's summary block."
+    },
+    {
+     "name": "latest_log_for",
+     "kind": "function",
+     "one_line": "Finds the newest runs/*_benchmark_<name>.json log."
+    },
+    {
+     "name": "extract_recovered_ratio",
+     "kind": "function",
+     "one_line": "Parses recovered_flags.recovered true_count/total from a summary."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "known_body_phase_recovery recovered_min_ratio",
+     "value": 1.0,
+     "context": "100% of trials must recover"
+    },
+    {
+     "name": "known_body_phase_recovery mass_relative_error",
+     "value": 0.01,
+     "context": "mean-error pass threshold"
+    },
+    {
+     "name": "known_body_phase_recovery radius_relative_error",
+     "value": 0.005,
+     "context": "mean-error pass threshold"
+    },
+    {
+     "name": "known_body_phase_recovery phase_absolute_error",
+     "value": 0.05,
+     "context": "mean-error pass threshold"
+    },
+    {
+     "name": "two_body_recovery mass_a/b_error",
+     "value": 0.03,
+     "context": "mean-error pass threshold per body"
+    },
+    {
+     "name": "two_body_recovery radius_a/b_error",
+     "value": 0.005,
+     "context": "mean-error pass threshold per body"
+    },
+    {
+     "name": "two_body_refinement mass_a/b_error",
+     "value": 0.02,
+     "context": "tighter mean-error pass threshold per body"
+    },
+    {
+     "name": "two_body_refinement radius_a/b_error",
+     "value": 0.005,
+     "context": "mean-error pass threshold per body"
+    },
+    {
+     "name": "eccentric_body_recovery mass_relative_error",
+     "value": 0.01,
+     "context": "mean-error pass threshold"
+    },
+    {
+     "name": "eccentric_body_recovery radius_relative_error",
+     "value": 0.005,
+     "context": "mean-error pass threshold"
+    },
+    {
+     "name": "eccentric_body_recovery eccentricity_absolute_error",
+     "value": 0.01,
+     "context": "mean-error pass threshold"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m engine.stage_gate"
+  },
+  {
+   "path": "engine/stages.py",
+   "lines": 28,
+   "purpose": "Defines DEFAULT_STAGE_LADDER, the five-level difficulty ladder from single_hidden_body up to local_stellar_neighborhood, each with a region_scale label (tiny/small/medium/large/xlarge).",
+   "key_symbols": [
+    {
+     "name": "DEFAULT_STAGE_LADDER",
+     "kind": "constant",
+     "one_line": "Five dicts naming stages single_hidden_body, multi_body_local, blind_inner_solar_system, blind_full_solar_system, local_stellar_neighborhood."
+    }
+   ],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "engine_smoke_test.py",
+   "lines": 34,
+   "purpose": "End-to-end smoke test of the engine scaffold (runs on import): builds InferenceEngine/StructureRegistry/RunLogger, promotes a ring pattern from four radii, evaluates a sample prediction, and writes a timestamped runs/ log.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [
+    "engine"
+   ],
+   "cli": "python engine_smoke_test.py"
+  },
+  {
+   "path": "gravity_mapper/__init__.py",
+   "lines": 1,
+   "purpose": "Empty package marker; exports nothing.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/benchmarks/__init__.py",
+   "lines": 1,
+   "purpose": "Empty package marker; exports nothing.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/benchmarks/hidden_truth.py",
+   "lines": 23,
+   "purpose": "Configuration for the synthetic hidden-truth benchmark: HiddenTruthConfig holds tracer count, fit/validate windows, noise, missing-data fraction, signal strength, and truth_model ('ring' or 'compact_pair'); describe_config renders it as a one-line string.",
+   "key_symbols": [
+    {
+     "name": "HiddenTruthConfig",
+     "kind": "class",
+     "one_line": "Dataclass of benchmark knobs with defaults below."
+    },
+    {
+     "name": "describe_config",
+     "kind": "function",
+     "one_line": "Renders a config as a compact key=value string."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "visible_tracers default",
+     "value": 5,
+     "context": "number of synthetic tracer bodies"
+    },
+    {
+     "name": "fit_years default",
+     "value": 6.0,
+     "context": "observation window used for fitting"
+    },
+    {
+     "name": "validate_years default",
+     "value": 4.0,
+     "context": "held-out validation window"
+    },
+    {
+     "name": "noise_std default",
+     "value": 0.0,
+     "context": "Gaussian position noise std"
+    },
+    {
+     "name": "missing_fraction default",
+     "value": 0.0,
+     "context": "fraction of epochs dropped"
+    },
+    {
+     "name": "signal_strength default",
+     "value": 1.0,
+     "context": "multiplier on the hidden perturbation"
+    },
+    {
+     "name": "truth_model default",
+     "value": "ring",
+     "context": "hidden structure family: 'ring' or 'compact_pair'"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/benchmarks/observation_schedule.py",
+   "lines": 24,
+   "purpose": "Generates sorted observation times: make_schedule builds a uniform grid over total_years and randomly drops epochs at missing_fraction while always keeping the first and last times.",
+   "key_symbols": [
+    {
+     "name": "make_schedule",
+     "kind": "function",
+     "one_line": "Uniform schedule with optional seeded random omissions, endpoints always kept."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "seed default",
+     "value": 0,
+     "context": "RNG seed for the omission mask"
+    },
+    {
+     "name": "grid point count",
+     "value": "round(total_years*observations_per_year)+1",
+     "context": "number of uniform grid points before omissions"
+    },
+    {
+     "name": "input guards",
+     "value": "total_years>0; observations_per_year>=2; 0<=missing_fraction<1",
+     "context": "validation rules raising ValueError"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/benchmarks/synthetic_truth.py",
+   "lines": 87,
+   "purpose": "Generates controlled synthetic observations: circular Keplerian tracers (period = radius^1.5 in toy units) plus a deliberately simplified concealed perturbation (a sinusoidal 'ring' signature or a two-tone 'compact_pair' signature), with optional noise and a fit/held-out mask split at fit_years. Explicitly a prototype, not the REBOUND physical forward model.",
+   "key_symbols": [
+    {
+     "name": "SyntheticObservations",
+     "kind": "class",
+     "one_line": "Frozen dataclass: times, positions, fit_mask, truth_model."
+    },
+    {
+     "name": "generate_synthetic_observations",
+     "kind": "function",
+     "one_line": "Builds tracer orbits plus concealed perturbation and noise."
+    },
+    {
+     "name": "summarize_observations",
+     "kind": "function",
+     "one_line": "One-line summary of times, tracers, fit vs held-out counts."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "observations_per_year",
+     "value": 24,
+     "context": "hardcoded cadence in generate_synthetic_observations"
+    },
+    {
+     "name": "tracer radii",
+     "value": "linspace(0.55, 1.35, visible_tracers)",
+     "context": "AU-like toy radii of visible tracers"
+    },
+    {
+     "name": "tracer phases",
+     "value": "linspace(0.2, 5.8, visible_tracers)",
+     "context": "initial orbital phases in radians"
+    },
+    {
+     "name": "ring period",
+     "value": 1.9,
+     "context": "years; ring perturbation sinusoid period"
+    },
+    {
+     "name": "ring amplitude",
+     "value": 0.002,
+     "context": "ring perturbation amplitude in toy position units"
+    },
+    {
+     "name": "ring direction",
+     "value": "(0.65, -0.35)",
+     "context": "fixed 2D direction of the ring perturbation"
+    },
+    {
+     "name": "compact_pair periods",
+     "value": "(1.25, 2.10)",
+     "context": "years; the two compact-pair signal periods"
+    },
+    {
+     "name": "compact_pair amplitudes",
+     "value": "(0.0015, 0.0011)",
+     "context": "amplitudes of the two compact-pair tones"
+    },
+    {
+     "name": "noise seed offset",
+     "value": "seed+1",
+     "context": "RNG seed for position noise, distinct from schedule seed"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.observation_schedule"
+   ],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/catalog/__init__.py",
+   "lines": 2,
+   "purpose": "Package marker for the catalog benchmark suite. Contains only the docstring 'Offline known-object catalog and blind-scenario utilities.' — no code.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/catalog/catalog_inner_refinement.py",
+   "lines": 333,
+   "purpose": "Outer-locked inner refinement on the seed_20260919 scenario's long observations: freezes the coarse outer hypothesis measured by the prior blind two-source fit (LOCKED_OUTER = 3.0e-4 M_sun, 10.0 AU, phase 4.712 rad) and brute-force scans a Mercury-scale inner grid (10 masses 1e-8-1e-6 M_sun, 10 radii 0.25-0.60 AU, 96 phases) on the train split; requires the inner candidate to improve holdout MSE by >=15% over outer-only AND hit mass<=50%, radius<=20%, phase<=0.35 rad vs the smallest-withheld-radius truth object (selects by minimum radius, not mass — unlike catalog_recovery's dominant-truth rule).",
+   "key_symbols": [
+    {
+     "name": "run_refinement",
+     "kind": "function",
+     "one_line": "Full pipeline: train grid search with locked outer, holdout improvement test, then truth comparison."
+    },
+    {
+     "name": "best_inner",
+     "kind": "function",
+     "one_line": "Brute-force train-MSE minimization over the 10x10x96 = 9600 inner grid with the outer fixed."
+    },
+    {
+     "name": "locked_outer_candidate",
+     "kind": "function",
+     "one_line": "Returns the frozen coarse outer Candidate from LOCKED_OUTER."
+    },
+    {
+     "name": "inner_truth",
+     "kind": "function",
+     "one_line": "Selects the withheld truth object with smallest orbital radius as the comparison target."
+    },
+    {
+     "name": "RefinementResult",
+     "kind": "class",
+     "one_line": "Result dataclass."
+    },
+    {
+     "name": "Candidate",
+     "kind": "class",
+     "one_line": "Frozen candidate dataclass."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "LOCKED_OUTER",
+     "value": "mass_solar=3.0e-4, radius_au=10.0, phase_rad=4.71238898038469",
+     "context": "Frozen outer hypothesis from the prior blind two-source fit; measured model input, not sealed truth."
+    },
+    {
+     "name": "INNER_MASS_GRID",
+     "value": "10 values from 1.0e-8 to 1.0e-6",
+     "context": "Mercury-scale mass bins."
+    },
+    {
+     "name": "INNER_RADIUS_GRID",
+     "value": "10 values from 0.25 to 0.60 AU",
+     "context": "Inner radius bins."
+    },
+    {
+     "name": "PHASE_STEPS",
+     "value": 96,
+     "context": "Phase resolution."
+    },
+    {
+     "name": "INNER_HOLDOUT_IMPROVEMENT_REQUIRED",
+     "value": 0.15,
+     "context": "Required holdout improvement over outer-only MSE."
+    },
+    {
+     "name": "recovery tolerances",
+     "value": "mass<=0.50, radius<=0.20, phase<=0.35 rad",
+     "context": "Tighter radius tolerance than catalog_recovery."
+    },
+    {
+     "name": "observation file",
+     "value": "{scenario_id}_long_observations.json",
+     "context": "Uses the longer observation bundle, unlike the recovery scripts."
+    },
+    {
+     "name": "RESULTS_PATH",
+     "value": "results/catalog_inner_refinement.csv",
+     "context": "Output CSV."
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.catalog.scenario_simulator"
+   ],
+   "cli": "python -m gravity_mapper.catalog.catalog_inner_refinement (run from source_upload/; writes results/catalog_inner_refinement.csv)"
+  },
+  {
+   "path": "gravity_mapper/catalog/catalog_joint_local_refinement.py",
+   "lines": 514,
+   "purpose": "Two-stage joint local refinement (circular orbits only) for the seed_20260919 scenario: independently fits shortlists of 16 inner and 16 outer candidates from local grids centered on the blind coarse solution (inner Mercury-scale circular; outer 2-4e-4 M_sun, 8.5-11 AU, phases 4.30-5.05 rad), then scores the 16x16 Cartesian product jointly on train and picks the best pair. Accepted if the refined pair beats the coarse reference pair (inner 3.0e-6/0.75/2.356 rad, outer 3.0e-4/10.0/4.712 rad) by >=15% on holdout AND both bodies hit tolerances (inner: mass<=50%, radius<=20%, phase<=0.35 rad; outer: mass<=30%, radius<=15%, phase<=0.20 rad). Differs from catalog_inner_refinement by fitting BOTH bodies jointly (no locked outer) and from the _inner_sensitive variant by circular-only candidates with no eccentricity parameter.",
+   "key_symbols": [
+    {
+     "name": "run_refinement",
+     "kind": "function",
+     "one_line": "Full pipeline: coarse baseline holdout, shortlists, joint pair search, acceptance and truth scoring."
+    },
+    {
+     "name": "best_shortlist",
+     "kind": "function",
+     "one_line": "Independent single-source train fits for inner/outer, retaining the top-limit candidates."
+    },
+    {
+     "name": "best_joint_pair",
+     "kind": "function",
+     "one_line": "Joint train-MSE minimization over the inner-shortlist x outer-shortlist product."
+    },
+    {
+     "name": "source_errors",
+     "kind": "function",
+     "one_line": "Relative mass/radius and absolute phase errors vs sealed truth."
+    },
+    {
+     "name": "truth_by_radius",
+     "kind": "function",
+     "one_line": "Splits the two withheld truths into inner/outer by orbital radius; requires exactly 2."
+    },
+    {
+     "name": "JointRefinementResult",
+     "kind": "class",
+     "one_line": "Result dataclass."
+    },
+    {
+     "name": "Candidate",
+     "kind": "class",
+     "one_line": "3-field frozen candidate (mass, radius, phase)."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "INNER_SHORTLIST / OUTER_SHORTLIST",
+     "value": "16 / 16",
+     "context": "Candidates retained per side before the joint search."
+    },
+    {
+     "name": "INNER_PHASE_STEPS",
+     "value": 48,
+     "context": "Inner phase resolution."
+    },
+    {
+     "name": "PAIR_HOLDOUT_IMPROVEMENT_REQUIRED",
+     "value": 0.15,
+     "context": "Refined pair must beat the coarse pair's holdout MSE by >=15%."
+    },
+    {
+     "name": "coarse reference pair",
+     "value": "inner (3.0e-6, 0.75, 2.356194490192345); outer (3.0e-4, 10.0, 4.71238898038469)",
+     "context": "Blind coarse-grid baseline held out for comparison."
+    },
+    {
+     "name": "inner tolerances",
+     "value": "mass<=0.50, radius<=0.20, phase<=0.35 rad",
+     "context": "Inner-body pass bounds."
+    },
+    {
+     "name": "outer tolerances",
+     "value": "mass<=0.30, radius<=0.15, phase<=0.20 rad",
+     "context": "Outer-body pass bounds (tighter than inner)."
+    },
+    {
+     "name": "RESULTS_PATH",
+     "value": "results/catalog_joint_local_refinement.csv",
+     "context": "Output CSV."
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.catalog.scenario_simulator"
+   ],
+   "cli": "python -m gravity_mapper.catalog.catalog_joint_local_refinement (run from source_upload/; writes results/catalog_joint_local_refinement.csv)"
+  },
+  {
+   "path": "gravity_mapper/catalog/catalog_joint_local_refinement_inner_sensitive.py",
+   "lines": 611,
+   "purpose": "Eccentric-orbit upgrade of catalog_joint_local_refinement, run on the inner-sensitive scenario (visible sun/venus/earth/mars/ceres, withheld mercury+saturn): Candidate gains an eccentricity field (inner e grid 0-0.30, outer e grid 0-0.10) and bodies are initialized Keplerian; shortlists grow to 24 inner / 20 outer, the inner mass grid gains finer bins (1.75e-7, radius 0.3875 AU), and pass criteria add eccentricity absolute errors (inner<=0.08, outer<=0.05) alongside mass/radius/phase tolerances and the >=15% holdout improvement over the coarse circular reference pair. Adds progress heartbeats during the larger searches; results CSV is named catalog_joint_local_refinement_inner_sensitive_eccentric.csv.",
+   "key_symbols": [
+    {
+     "name": "run_refinement",
+     "kind": "function",
+     "one_line": "Same two-stage pipeline as the circular variant but with eccentric candidates and extended grids."
+    },
+    {
+     "name": "best_shortlist",
+     "kind": "function",
+     "one_line": "Same shortlist-then-joint-product search, with progress/heartbeat logging."
+    },
+    {
+     "name": "best_joint_pair",
+     "kind": "function",
+     "one_line": "Joint train-MSE minimization over the inner-shortlist x outer-shortlist product."
+    },
+    {
+     "name": "source_errors",
+     "kind": "function",
+     "one_line": "Returns a 4-tuple: relative mass/radius, absolute phase, absolute eccentricity error."
+    },
+    {
+     "name": "Candidate",
+     "kind": "class",
+     "one_line": "4-field frozen dataclass (mass_solar, radius_au, phase_rad, eccentricity)."
+    },
+    {
+     "name": "JointRefinementResult",
+     "kind": "class",
+     "one_line": "Result dataclass extended with inner/outer eccentricity values and errors."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "SCENARIO_ID",
+     "value": "solar_catalog_inner_sensitive_visible_4_hidden_2",
+     "context": "Inner-sensitive scenario with 4 visible / 2 hidden bodies."
+    },
+    {
+     "name": "INNER_ECCENTRICITY_GRID",
+     "value": "[0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30]",
+     "context": "New eccentric dimension vs the circular variant."
+    },
+    {
+     "name": "OUTER_ECCENTRICITY_GRID",
+     "value": "[0, 0.025, 0.05, 0.075, 0.10]",
+     "context": "Outer eccentric dimension."
+    },
+    {
+     "name": "INNER_SHORTLIST / OUTER_SHORTLIST",
+     "value": "24 / 20",
+     "context": "Larger shortlists than the circular variant's 16/16."
+    },
+    {
+     "name": "coarse reference pair",
+     "value": "inner (3.0e-6, 0.75, 2.356194490192345, 0.0); outer (3.0e-4, 10.0, 4.71238898038469, 0.0)",
+     "context": "Circular coarse baseline."
+    },
+    {
+     "name": "eccentricity tolerances",
+     "value": "inner_ecc<=0.08 abs, outer_ecc<=0.05 abs",
+     "context": "Additional pass bounds vs the circular variant."
+    },
+    {
+     "name": "PROGRESS_EVERY",
+     "value": 250,
+     "context": "Progress logging cadence during the large searches."
+    },
+    {
+     "name": "HEARTBEAT_SECONDS",
+     "value": 2.0,
+     "context": "Heartbeat interval during the large searches."
+    },
+    {
+     "name": "RESULTS_PATH",
+     "value": "results/catalog_joint_local_refinement_inner_sensitive_eccentric.csv",
+     "context": "Output CSV."
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.catalog.scenario_simulator"
+   ],
+   "cli": "python -m gravity_mapper.catalog.catalog_joint_local_refinement_inner_sensitive (run from source_upload/; writes results/catalog_joint_local_refinement_inner_sensitive_eccentric.csv)"
+  },
+  {
+   "path": "gravity_mapper/catalog/catalog_mercury_fixed_outer_refinement.py",
+   "lines": 248,
+   "purpose": "Diagnostic follow-up on the inner-sensitive scenario (withheld mercury + saturn): holds the well-recovered outer (Saturn-like) body FIXED at mass 2.75e-4 M_sun, radius 9.50 AU, phase 4.80 rad, e 0.025, and brute-forces a focused Mercury-region grid — 15 masses (8.0e-8-2.2e-7), 19 radii (0.30-0.48 AU), 96 phases, 13 eccentricities (0.16-0.25) = 355,680 candidates — on the train split. Applies the same >=15% holdout-improvement acceptance (vs the coarse two-source baseline) and error tolerances (inner mass<=50%, radius<=20%, phase<=0.35 rad, ecc<=0.08; outer ecc<=0.05), labeling the accepted model 'mercury_local_fixed_saturn_eccentric'. This is the run behind the catalog-constrained-refinement benchmark's Mercury-like failure (mass error 502%).",
+   "key_symbols": [
+    {
+     "name": "run_refinement",
+     "kind": "function",
+     "one_line": "Fixed-outer Mercury refinement: train brute force, holdout comparison vs coarse baseline, truth scoring."
+    },
+    {
+     "name": "best_inner",
+     "kind": "function",
+     "one_line": "Brute-force train-MSE search over the 355,680-candidate Mercury grid with progress heartbeats."
+    },
+    {
+     "name": "candidates",
+     "kind": "function",
+     "one_line": "Builds the full mass x radius x phase x ecc grid."
+    },
+    {
+     "name": "FIXED_OUTER",
+     "kind": "constant",
+     "one_line": "The frozen Saturn-like outer Candidate (2.75e-4 M_sun, 9.50 AU, 4.80 rad, e=0.025)."
+    },
+    {
+     "name": "JointRefinementResult",
+     "kind": "class",
+     "one_line": "Reused from the inner-sensitive module (eccentricity-aware result dataclass)."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "FIXED_OUTER",
+     "value": "mass_solar=2.75e-4, radius_au=9.50, phase_rad=4.80, eccentricity=0.025",
+     "context": "Well-recovered outer body held fixed while Mercury is refined."
+    },
+    {
+     "name": "MASS_GRID",
+     "value": "8.0e-8 + i*1.0e-8 for i in 0..14 (8.0e-8 to 2.2e-7)",
+     "context": "Focused Mercury-mass range; true Mercury mass ~1.65e-7 M_sun lies inside."
+    },
+    {
+     "name": "RADIUS_GRID",
+     "value": "0.30 + i*0.01 for i in 0..18 (0.30 to 0.48 AU)",
+     "context": "Focused Mercury-radius range; Mercury a=0.387 AU inside."
+    },
+    {
+     "name": "PHASE_STEPS",
+     "value": 96,
+     "context": "Phase resolution."
+    },
+    {
+     "name": "ECC_GRID",
+     "value": "0.16 + i*0.0075 for i in 0..12 (0.16 to 0.25)",
+     "context": "Focused eccentricity range; Mercury e=0.2056 inside."
+    },
+    {
+     "name": "total candidates",
+     "value": "355680",
+     "context": "15 x 19 x 96 x 13 brute-force grid size."
+    },
+    {
+     "name": "coarse baseline",
+     "value": "inner (3.0e-6, 0.75, 2.356 rad, 0.0); outer (3.0e-4, 10.0, 4.712 rad, 0.0)",
+     "context": "Reference pair for the >=15% holdout improvement test."
+    },
+    {
+     "name": "RESULTS_PATH",
+     "value": "results/catalog_mercury_fixed_outer_refinement.csv",
+     "context": "Output CSV."
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.catalog.catalog_joint_local_refinement_inner_sensitive"
+   ],
+   "cli": "python -m gravity_mapper.catalog.catalog_mercury_fixed_outer_refinement (run from source_upload/; writes results/catalog_mercury_fixed_outer_refinement.csv)"
+  },
+  {
+   "path": "gravity_mapper/catalog/catalog_recovery.py",
+   "lines": 380,
+   "purpose": "One-hidden-body blind recovery benchmark on solar_catalog_seed_20260919_visible_3_hidden_2: brute-force scans a mass/radius/phase candidate grid on the 70% train split, accepts the single-source model only if holdout MSE improves >=15% over the no-hidden-body baseline, then unseals truth and scores against the dominant (most massive) withheld object with mass<=50%, radius<=35%, phase<=0.55 rad tolerances.",
+   "key_symbols": [
+    {
+     "name": "run_recovery",
+     "kind": "function",
+     "one_line": "Full pipeline: fit on train, holdout model selection, then compare to sealed truth; returns RecoveryResult."
+    },
+    {
+     "name": "fit_one_hidden_body",
+     "kind": "function",
+     "one_line": "Brute-force train-MSE minimization over the full candidate grid."
+    },
+    {
+     "name": "score_candidate",
+     "kind": "function",
+     "one_line": "Verlet-simulated position MSE of visible+optional-candidate system vs observations."
+    },
+    {
+     "name": "candidate_grid",
+     "kind": "function",
+     "one_line": "Builds the 8x12x24 = 2304 candidate cross-product."
+    },
+    {
+     "name": "dominant_truth_object",
+     "kind": "function",
+     "one_line": "Picks the most massive withheld object as the comparison target."
+    },
+    {
+     "name": "RecoveryResult",
+     "kind": "class",
+     "one_line": "Result dataclass (selected params, MSEs, errors, recovered flag)."
+    },
+    {
+     "name": "Candidate",
+     "kind": "class",
+     "one_line": "Frozen candidate dataclass (mass, radius, phase)."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "MINIMUM_HOLDOUT_IMPROVEMENT",
+     "value": 0.15,
+     "context": "Acceptance: single-source holdout MSE must beat baseline by >=15%."
+    },
+    {
+     "name": "MASS_GRID",
+     "value": "[1.0e-6, 3.0e-6, 1.0e-5, 5.0e-5, 1.0e-4, 2.5e-4, 5.0e-4, 1.0e-3]",
+     "context": "Solar masses scanned."
+    },
+    {
+     "name": "RADIUS_GRID",
+     "value": "[0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.0, 7.5, 10.0, 15.0, 20.0, 30.0]",
+     "context": "AU radii scanned."
+    },
+    {
+     "name": "PHASE_STEPS",
+     "value": 24,
+     "context": "Uniform phase bins per (mass, radius)."
+    },
+    {
+     "name": "TRAIN_FRACTION",
+     "value": 0.7,
+     "context": "Train/holdout time split."
+    },
+    {
+     "name": "recovery tolerances",
+     "value": "mass<=0.50, radius<=0.35, phase<=0.55 rad",
+     "context": "Pass/fail bounds vs dominant withheld truth."
+    },
+    {
+     "name": "RESULTS_PATH",
+     "value": "results/catalog_one_body_recovery.csv",
+     "context": "Output CSV."
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.catalog.scenario_simulator"
+   ],
+   "cli": "python -m gravity_mapper.catalog.catalog_recovery (run from source_upload/; reads scenarios/ and scenario_observations/, writes results/catalog_one_body_recovery.csv)"
+  },
+  {
+   "path": "gravity_mapper/catalog/catalog_two_body_recovery.py",
+   "lines": 396,
+   "purpose": "Two-hidden-body blind recovery benchmark on the same scenario: scores 11 (mass, radius) candidate families x 24 phases as single sources, keeps the winner plus a top-18 shortlist, then jointly scores every shortlist x full-grid pair on train (vetoing pairs with |delta radius| < 0.10 AU); accepts the two-source model if its holdout MSE beats the one-source holdout by >=20%, then greedily matches each candidate to the nearest withheld truth by radius and declares recovery only if ALL truth objects match within mass<=75%, radius<=40%, phase<=0.60 rad. Its measured outer solution (3e-4 M_sun, 10 AU, 4.712 rad) is what catalog_inner_refinement freezes as LOCKED_OUTER.",
+   "key_symbols": [
+    {
+     "name": "run_recovery",
+     "kind": "function",
+     "one_line": "Full pipeline: single-source shortlist, joint pair search, holdout model selection, truth matching."
+    },
+    {
+     "name": "best_one_source",
+     "kind": "function",
+     "one_line": "Scores all candidates singly; returns winner, its MSE, and the top-18 shortlist."
+    },
+    {
+     "name": "best_two_sources",
+     "kind": "function",
+     "one_line": "Joint train-MSE search over shortlist x full-grid pairs with near-equal-radius veto."
+    },
+    {
+     "name": "match_candidates_to_truth",
+     "kind": "function",
+     "one_line": "Greedy nearest-radius matching of the pair to withheld truth with per-source tolerances."
+    },
+    {
+     "name": "RecoveryResult",
+     "kind": "class",
+     "one_line": "Result dataclass."
+    },
+    {
+     "name": "Candidate",
+     "kind": "class",
+     "one_line": "Frozen candidate dataclass."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "CANDIDATE_FAMILIES",
+     "value": "11 pairs from (1.0e-7, 0.35) to (5.0e-4, 15.00)",
+     "context": "Blind physical hypothesis bins, mass_solar x radius_au."
+    },
+    {
+     "name": "SECOND_SOURCE_SHORTLIST",
+     "value": 18,
+     "context": "Top one-source candidates retained for the pair search."
+    },
+    {
+     "name": "PHASE_STEPS",
+     "value": 24,
+     "context": "Uniform phase bins per family."
+    },
+    {
+     "name": "TWO_SOURCE_HOLDOUT_IMPROVEMENT_REQUIRED",
+     "value": 0.2,
+     "context": "Two-source acceptance threshold over the one-source holdout MSE."
+    },
+    {
+     "name": "radius veto",
+     "value": 0.1,
+     "context": "Pairs with |radius_1 - radius_2| < 0.10 AU skipped (avoids degenerate twins)."
+    },
+    {
+     "name": "match tolerances",
+     "value": "mass<=0.75, radius<=0.40, phase<=0.60 rad",
+     "context": "Per-source match bounds; all withheld objects must match."
+    },
+    {
+     "name": "RESULTS_PATH",
+     "value": "results/catalog_two_body_recovery.csv",
+     "context": "Output CSV."
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.catalog.scenario_simulator"
+   ],
+   "cli": "python -m gravity_mapper.catalog.catalog_two_body_recovery (run from source_upload/; writes results/catalog_two_body_recovery.csv)"
+  },
+  {
+   "path": "gravity_mapper/catalog/inner_sensitive_scenario.py",
+   "lines": 67,
+   "purpose": "Builds a hand-picked (non-random) blind scenario 'solar_catalog_inner_sensitive_visible_4_hidden_2': visible = sun, venus, earth, mars, ceres; withheld = mercury, saturn; all other catalog bodies excluded as background. Saves the inference/truth manifest pair via scenarios.save_scenario.",
+   "key_symbols": [
+    {
+     "name": "create_inner_sensitive_scenario",
+     "kind": "function",
+     "one_line": "Validates catalog presence of the visible + withheld ids, then returns the fixed Scenario object."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Generates and saves the scenario manifests, printing scenario id, visible/withheld lists, and paths."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "seed",
+     "value": 20260919,
+     "context": "Fixed seed of the scenario."
+    },
+    {
+     "name": "visible / withheld",
+     "value": "sun, venus, earth, mars, ceres visible; mercury, saturn withheld",
+     "context": "Hand-picked composition; differs from scenarios.py's randomized 3-visible/2-hidden."
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.catalog.scenarios"
+   ],
+   "cli": "python -m gravity_mapper.catalog.inner_sensitive_scenario (run from source_upload/; writes manifests to scenarios/)"
+  },
+  {
+   "path": "gravity_mapper/catalog/scenario_simulator.py",
+   "lines": 308,
+   "purpose": "Physics engine and observation generator for all catalog benchmarks: defines the Body dataclass, pairwise 1/r^2 accelerations, a velocity-Verlet integrator, circular and Keplerian (eccentric) body initializers, and generate_solver_safe_observations, which simulates the full truth system (visible + withheld bodies) and emits Gaussian-noisy position observations of visible bodies only, sealed with withheld_truth_available_to_solver=False.",
+   "key_symbols": [
+    {
+     "name": "Body",
+     "kind": "class",
+     "one_line": "Dataclass: object_id, mass_solar, x, y, vx, vy."
+    },
+    {
+     "name": "step_verlet",
+     "kind": "function",
+     "one_line": "Velocity-Verlet integration step for all bodies at timestep DT."
+    },
+    {
+     "name": "circular_body",
+     "kind": "function",
+     "one_line": "Initializes a body on a circular orbit from catalog fields."
+    },
+    {
+     "name": "keplerian_body",
+     "kind": "function",
+     "one_line": "Initializes a body on an eccentric orbit (phase as true anomaly) from catalog fields."
+    },
+    {
+     "name": "body_from_catalog_item",
+     "kind": "function",
+     "one_line": "Dispatches to keplerian_body if eccentricity > 0, else circular_body."
+    },
+    {
+     "name": "make_truth_system",
+     "kind": "function",
+     "one_line": "Builds the full simulated system (visible + withheld) with sun velocity set for zero total momentum."
+    },
+    {
+     "name": "generate_solver_safe_observations",
+     "kind": "function",
+     "one_line": "Integrates the truth system and records noisy (x,y) positions of visible bodies only."
+    },
+    {
+     "name": "write_observation_bundle",
+     "kind": "function",
+     "one_line": "Generates and saves <scenario_id>_observations.json into scenario_observations/."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "G",
+     "value": "4*pi^2",
+     "context": "Gravitational constant in AU / solar-mass / year units."
+    },
+    {
+     "name": "DT",
+     "value": 0.01,
+     "context": "Integration timestep in years (shared by scoring code)."
+    },
+    {
+     "name": "DEFAULT_YEARS",
+     "value": 4.0,
+     "context": "Default observation span."
+    },
+    {
+     "name": "DEFAULT_OBSERVE_EVERY",
+     "value": 10,
+     "context": "Sample every 10 steps = 0.1 yr cadence."
+    },
+    {
+     "name": "DEFAULT_NOISE_AU",
+     "value": 1e-05,
+     "context": "Default Gaussian position noise per observation."
+    },
+    {
+     "name": "default seed",
+     "value": 20260919,
+     "context": "Default RNG seed for observation noise."
+    },
+    {
+     "name": "softening",
+     "value": 1e-12,
+     "context": "r^2 softening term in acceleration to avoid division by zero."
+    },
+    {
+     "name": "eccentricity limits",
+     "value": "e>=0.95 rejected; e<=1e-12 treated as circular",
+     "context": "Supported eccentricity range."
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.catalog.scenario_simulator (run from source_upload/; writes observations for hardcoded solar_catalog_seed_20260919_visible_3_hidden_2)"
+  },
+  {
+   "path": "gravity_mapper/catalog/scenarios.py",
+   "lines": 153,
+   "purpose": "Offline-catalog blind-scenario infrastructure: loads solar_system_objects.json, randomly withholds withhold-eligible objects as hidden truth, and writes solver-safe inference + sealed truth JSON manifests. Its main() generates the seed=20260919, 2-hidden/3-visible scenario consumed by all recovery/refinement scripts.",
+   "key_symbols": [
+    {
+     "name": "Scenario",
+     "kind": "class",
+     "one_line": "Frozen dataclass holding scenario_id, seed, visible/withheld/excluded id tuples, catalog_version."
+    },
+    {
+     "name": "create_blind_scenario",
+     "kind": "function",
+     "one_line": "Randomly selects hidden_count withhold-eligible objects as withheld and visible_count others as visible (sun always visible) using a seed."
+    },
+    {
+     "name": "inference_manifest",
+     "kind": "function",
+     "one_line": "Builds inference JSON (visible objects only, withheld truth flagged unavailable)."
+    },
+    {
+     "name": "truth_manifest",
+     "kind": "function",
+     "one_line": "Builds sealed truth JSON (withheld objects)."
+    },
+    {
+     "name": "save_scenario",
+     "kind": "function",
+     "one_line": "Writes <scenario_id>_inference.json and <scenario_id>_truth.json into scenarios/."
+    },
+    {
+     "name": "load_catalog",
+     "kind": "function",
+     "one_line": "Loads the offline solar-system catalog JSON."
+    },
+    {
+     "name": "catalog_index",
+     "kind": "function",
+     "one_line": "Indexes the catalog by object_id."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "CATALOG_PATH",
+     "value": "solar_system_objects.json (next to this module)",
+     "context": "Offline known-object catalog source."
+    },
+    {
+     "name": "main() seed / counts",
+     "value": "seed=20260919, hidden_count=2, visible_count=3",
+     "context": "Defaults used to build the shared benchmark scenario."
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.catalog.scenarios (run from source_upload/; writes the seed_20260919 scenario manifests to scenarios/)"
+  },
+  {
+   "path": "gravity_mapper/controller/__init__.py",
+   "lines": 2,
+   "purpose": "Package marker carrying only the docstring 'Recommendation-only benchmark controller.'; exports nothing.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/controller/recommend_next.py",
+   "lines": 188,
+   "purpose": "Recommendation-only controller: reads the newest runs/*.json log and, without running anything (auto_run_allowed is always False), emits a status, reason, next action, and suggested command. Encodes explicit policies for catalog_one_body_recovery (15% holdout-improvement gate) and blind_inner_solar_system_model_selection_residual (20% two-source holdout gate); returns BENCHMARK_PASSED when all trials recover, else REVIEW_REQUIRED for unpolicied benchmarks.",
+   "key_symbols": [
+    {
+     "name": "Recommendation",
+     "kind": "class",
+     "one_line": "Frozen dataclass: status, reason, next_action, command, auto_run_allowed."
+    },
+    {
+     "name": "recommend",
+     "kind": "function",
+     "one_line": "Applies the per-benchmark policies to a run log and returns a Recommendation."
+    },
+    {
+     "name": "newest_run_log",
+     "kind": "function",
+     "one_line": "Returns the most recently modified runs/*.json file."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Loads newest log, prints recommendation, returns exit code."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "RUNS_DIR",
+     "value": "runs",
+     "context": "relative directory scanned for run logs"
+    },
+    {
+     "name": "one-body improvement gate",
+     "value": 0.15,
+     "context": "holdout_improvement_fraction needed before a two-source follow-up is recommended"
+    },
+    {
+     "name": "two-source improvement gate",
+     "value": 0.2,
+     "context": "two_improvement_fraction needed to justify the second source"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.controller.recommend_next"
+  },
+  {
+   "path": "gravity_mapper/dynamics/__init__.py",
+   "lines": 1,
+   "purpose": "Empty package marker; exports nothing.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/dynamics/two_body_demo.py",
+   "lines": 14,
+   "purpose": "REBOUND sanity demo that executes on import: integrates a Sun+Earth-mass planet (m=3.003e-6 at a=1.0 AU, e=0.0167, G=4pi^2) for one year and prints the final orbital radius.",
+   "key_symbols": [],
+   "key_numbers": [
+    {
+     "name": "G",
+     "value": 4.0,
+     "context": "gravitational constant in units where G=4*pi^2 (AU, yr, solar masses)"
+    },
+    {
+     "name": "planet mass",
+     "value": 3.003e-06,
+     "context": "Earth-mass planet in solar masses"
+    },
+    {
+     "name": "semi-major axis",
+     "value": 1.0,
+     "context": "AU"
+    },
+    {
+     "name": "eccentricity",
+     "value": 0.0167,
+     "context": "Earth-like eccentricity"
+    },
+    {
+     "name": "integration time",
+     "value": 1.0,
+     "context": "years"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python gravity_mapper/dynamics/two_body_demo.py"
+  },
+  {
+   "path": "gravity_mapper/inference/__init__.py",
+   "lines": 1,
+   "purpose": "Empty package marker; exports nothing.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/inference/model_selection.py",
+   "lines": 112,
+   "purpose": "Held-out model selection between 'ring' and 'compact_pair' hypotheses: removes each tracer's Keplerian baseline via least squares, fits residual templates (ring: single 1.9-yr sinusoid; compact: 1.25+2.10-yr sinusoids) on fit epochs, and selects the lower held-out MSE unless the fractional margin is below unresolved_margin (default 0.10), returning 'unresolved' instead.",
+   "key_symbols": [
+    {
+     "name": "ModelSelectionResult",
+     "kind": "class",
+     "one_line": "Frozen dataclass: ring_error, compact_error, selected_model, margin."
+    },
+    {
+     "name": "select_model",
+     "kind": "function",
+     "one_line": "Baseline-subtract, template-fit, and pick the better held-out predictor."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "unresolved_margin default",
+     "value": 0.1,
+     "context": "fractional margin below which selection is 'unresolved'"
+    },
+    {
+     "name": "ring template periods",
+     "value": "(1.9,)",
+     "context": "years; residual template for the ring hypothesis"
+    },
+    {
+     "name": "compact template periods",
+     "value": "(1.25, 2.10)",
+     "context": "years; residual template for the compact-pair hypothesis"
+    },
+    {
+     "name": "margin definition",
+     "value": "(worst-best)/worst",
+     "context": "relative gap between the two held-out MSEs"
+    },
+    {
+     "name": "baseline periods",
+     "value": "radii^1.5",
+     "context": "per-tracer Keplerian baseline periods from linspace(0.55,1.35)"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.synthetic_truth"
+   ],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/validation/__init__.py",
+   "lines": 1,
+   "purpose": "Empty package marker; exports nothing.",
+   "key_symbols": [],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": null
+  },
+  {
+   "path": "gravity_mapper/validation/blind_inner_solar_system.py",
+   "lines": 325,
+   "purpose": "Blind one-hidden-body test with realistic N-body dynamics: truth is Sun + one hidden Jupiter (known orbit radius 5.2044 AU) + visible Saturn and Uranus; infers Jupiter's mass (11-point grid) and starting phase (48 steps) from 8 years of noisy Saturn/Uranus position tracks, scoring on a 2-year holdout. A trial passes if mass relative error <= 20% and phase absolute error <= 2pi/48 + 0.02 rad.",
+   "key_symbols": [
+    {
+     "name": "run_trial",
+     "kind": "function",
+     "one_line": "Runs one trial end-to-end: simulates truth, fits hidden mass/phase, computes holdout error, returns pass/fail."
+    },
+    {
+     "name": "infer_hidden_jupiter",
+     "kind": "function",
+     "one_line": "Brute-force grid search over MASS_GRID x 48 phase steps minimizing trajectory MSE."
+    },
+    {
+     "name": "mean_squared_position_error",
+     "kind": "function",
+     "one_line": "Re-simulates candidate system and returns mean squared position error vs observations."
+    },
+    {
+     "name": "heldout_error",
+     "kind": "function",
+     "one_line": "Forecast error of estimated system vs noisy truth over the 2-year holdout span."
+    },
+    {
+     "name": "simulate_observations",
+     "kind": "function",
+     "one_line": "Velocity-Verlet N-body integration with Gaussian position noise on visible bodies."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Runs 12 trials at fixed true phases and writes results/blind_inner_solar_system.csv."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 12,
+     "context": "fixed true phases (0.18 .. 5.91 rad), one recovery run each"
+    },
+    {
+     "name": "MASS_GRID",
+     "value": 11,
+     "context": "mass candidates from 4.0e-4 to 1.4e-3 solar masses"
+    },
+    {
+     "name": "PHASE_STEPS",
+     "value": 48,
+     "context": "phase grid spacing ~0.13 rad"
+    },
+    {
+     "name": "TRAIN_YEARS",
+     "value": 8.0,
+     "context": "training span; HOLDOUT_YEARS=2.0"
+    },
+    {
+     "name": "DT",
+     "value": 0.005,
+     "context": "Verlet integration timestep (years)"
+    },
+    {
+     "name": "OBSERVE_EVERY",
+     "value": 20,
+     "context": "record visible-body positions every 20 steps (0.1 yr cadence)"
+    },
+    {
+     "name": "POSITION_NOISE_AU",
+     "value": 1e-05,
+     "context": "Gaussian position noise per observation"
+    },
+    {
+     "name": "pass_mass_error",
+     "value": 0.2,
+     "context": "recovered if mass relative error <= 20%"
+    },
+    {
+     "name": "pass_phase_error",
+     "value": "2pi/48 + 0.02",
+     "context": "recovered if phase absolute error <= one grid step + 0.02 rad"
+    },
+    {
+     "name": "seeds",
+     "value": "1000+trial / 5000+trial",
+     "context": "train / holdout RNG seeds per trial"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.validation.blind_inner_solar_system"
+  },
+  {
+   "path": "gravity_mapper/validation/blind_inner_solar_system_model_selection.py",
+   "lines": 470,
+   "purpose": "Blind structural-identification test: truth contains TWO hidden planetary sources (Jupiter-mass at 5.2044 AU + 2.80e-4 at 7.60 AU) plus visible Saturn/Uranus; pipeline fits one source, searches residuals for a second (excluding candidates within 0.15 AU of the first), jointly refines the pair, and selects one- vs two-source models by whether holdout MSE improves >= 20%. A trial passes only if the two-source model is selected AND mass/radius errors meet per-source tolerances (source A: 25%/10%; source B: 35%/12%).",
+   "key_symbols": [
+    {
+     "name": "run_trial",
+     "kind": "function",
+     "one_line": "Full pipeline per trial: fit 1 source, residual 2nd-source search, joint refinement, holdout model choice."
+    },
+    {
+     "name": "select_first_source",
+     "kind": "function",
+     "one_line": "Grid-best one-source fit minimizing trajectory MSE over CANDIDATES x 16 phases."
+    },
+    {
+     "name": "select_second_source_from_residual",
+     "kind": "function",
+     "one_line": "Best second source by minimizing residual MSE after subtracting first-source prediction."
+    },
+    {
+     "name": "jointly_refine_pair",
+     "kind": "function",
+     "one_line": "Coarse-to-fine joint re-search of both sources within +-0.45 AU neighborhoods."
+    },
+    {
+     "name": "residual_signal",
+     "kind": "function",
+     "one_line": "Computes observed-minus-model residual trajectory rows."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Runs 6 trials at fixed phase pairs; writes results/blind_inner_solar_system_model_selection.csv."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 6,
+     "context": "fixed (phase_a, phase_b) pairs"
+    },
+    {
+     "name": "CANDIDATES",
+     "value": 7,
+     "context": "(mass, radius) pairs from (7.50e-4, 4.8) to (3.75e-4, 8.0); x16 phase steps"
+    },
+    {
+     "name": "PHASE_STEPS",
+     "value": 16,
+     "context": "coarser than the single-source scripts"
+    },
+    {
+     "name": "TWO_SOURCE_IMPROVEMENT_REQUIRED",
+     "value": 0.2,
+     "context": "two-source model selected only if holdout MSE improves >= 20% over one-source"
+    },
+    {
+     "name": "second_source_radius_exclusion",
+     "value": 0.15,
+     "context": "second candidate must be >=0.15 AU from first source radius"
+    },
+    {
+     "name": "joint_refine_neighborhood",
+     "value": 0.45,
+     "context": "refinement search radius around each greedy estimate (AU)"
+    },
+    {
+     "name": "TRAIN_YEARS",
+     "value": 12.0,
+     "context": "training span; HOLDOUT_YEARS=4.0"
+    },
+    {
+     "name": "DT",
+     "value": 0.02,
+     "context": "Verlet timestep; OBSERVE_EVERY=5"
+    },
+    {
+     "name": "POSITION_NOISE_AU",
+     "value": 1e-05,
+     "context": "Gaussian position noise per observation"
+    },
+    {
+     "name": "seeds",
+     "value": "1000+trial / 5000+trial",
+     "context": "train / holdout RNG seeds per trial"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.validation.blind_inner_solar_system_model_selection"
+  },
+  {
+   "path": "gravity_mapper/validation/blind_inner_solar_system_radius.py",
+   "lines": 342,
+   "purpose": "Blind one-hidden-Jupiter test that also infers orbital radius: truth is Sun + hidden Jupiter (mass 9.5458e-4, radius 5.2044 AU) + visible Saturn/Uranus; fits mass (9-point grid), radius (7-point grid), and phase (36 steps) simultaneously from 10 years of noisy position tracks with a 3-year holdout. A trial passes if mass error <= 20%, radius error <= 6%, and phase error <= 0.22 rad.",
+   "key_symbols": [
+    {
+     "name": "run_trial",
+     "kind": "function",
+     "one_line": "Simulates truth, infers mass/radius/phase, checks pass criteria, computes holdout forecast error."
+    },
+    {
+     "name": "infer_hidden_source",
+     "kind": "function",
+     "one_line": "Triple-nested grid search over RADIUS_GRID x MASS_GRID x 36 phases."
+    },
+    {
+     "name": "candidate_mse",
+     "kind": "function",
+     "one_line": "Trajectory MSE of a candidate system against observations."
+    },
+    {
+     "name": "forecast_mse",
+     "kind": "function",
+     "one_line": "Holdout forecast error of estimated system vs noisy truth."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Runs 10 trials; writes results/blind_inner_solar_system_radius.csv."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 10,
+     "context": "fixed true phases 0.19 .. 5.59 rad"
+    },
+    {
+     "name": "MASS_GRID",
+     "value": 9,
+     "context": "6.0e-4 .. 1.30e-3 solar masses"
+    },
+    {
+     "name": "RADIUS_GRID",
+     "value": 7,
+     "context": "4.60 .. 5.80 AU"
+    },
+    {
+     "name": "PHASE_STEPS",
+     "value": 36,
+     "context": "phase grid"
+    },
+    {
+     "name": "PASS_MASS_ERROR",
+     "value": 0.2,
+     "context": "recovered if mass relative error <= 20%"
+    },
+    {
+     "name": "PASS_RADIUS_ERROR",
+     "value": 0.06,
+     "context": "recovered if radius relative error <= 6%"
+    },
+    {
+     "name": "PASS_PHASE_ERROR",
+     "value": 0.22,
+     "context": "recovered if phase absolute error <= 0.22 rad"
+    },
+    {
+     "name": "TRAIN_YEARS",
+     "value": 10.0,
+     "context": "training span; HOLDOUT_YEARS=3.0"
+    },
+    {
+     "name": "DT",
+     "value": 0.01,
+     "context": "Verlet timestep; OBSERVE_EVERY=10"
+    },
+    {
+     "name": "POSITION_NOISE_AU",
+     "value": 1e-05,
+     "context": "Gaussian position noise per observation"
+    },
+    {
+     "name": "seeds",
+     "value": "10000+trial / 20000+trial",
+     "context": "train / holdout RNG seeds per trial"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.validation.blind_inner_solar_system_radius"
+  },
+  {
+   "path": "gravity_mapper/validation/dual_eccentric_recovery.py",
+   "lines": 108,
+   "purpose": "Two-eccentric-body recovery from a composite signal: recovers body A greedily, subtracts its estimated signal, recovers B from the residual, then runs 3 alternating refinement passes, all reusing recover_eccentric_body from eccentric_body_recovery. Reports per-body recovery and a both-recovered count over 20 randomized trials.",
+   "key_symbols": [
+    {
+     "name": "run_dual_eccentric_recovery",
+     "kind": "function",
+     "one_line": "Loop over trials: build composite signal, greedy A then B, then alternating refinement; writes CSV."
+    },
+    {
+     "name": "DualEccentricResult",
+     "kind": "class",
+     "one_line": "Per-trial dataclass holding both bodies' recovered flags and mass/radius/ecc errors."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Prints both-recovered count, mean errors, per-failure details."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 20,
+     "context": "two independent random eccentric configs per trial"
+    },
+    {
+     "name": "refinement_passes",
+     "value": 3,
+     "context": "alternating re-fit passes after greedy initialization"
+    },
+    {
+     "name": "samples",
+     "value": 360,
+     "context": "times = linspace(0, 6.0, 360)"
+    },
+    {
+     "name": "noise",
+     "value": 2e-08,
+     "context": "Gaussian noise on composite signal"
+    },
+    {
+     "name": "seeds",
+     "value": "seed+5000 / +6000 / +7000",
+     "context": "separate RNGs for config A, config B, noise"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.eccentric_body_recovery"
+   ],
+   "cli": "python -m gravity_mapper.validation.dual_eccentric_recovery"
+  },
+  {
+   "path": "gravity_mapper/validation/eccentric_body_recovery.py",
+   "lines": 175,
+   "purpose": "Single eccentric-body recovery on an analytic signal model (sinusoid plus first harmonic, amplitude = mass/radius^2, period = radius^1.5): draws a random true config (mass 1.5-4.5e-6, radius 0.75-1.25, eccentricity 0-0.40), then brute-force grid search over radius, mass, phase, and eccentricity. A trial passes if mass error <= 10%, radius error <= 5%, and eccentricity absolute error <= 0.05.",
+   "key_symbols": [
+    {
+     "name": "recover_eccentric_body",
+     "kind": "function",
+     "one_line": "Vectorized grid search over r/m/p/e minimizing mean squared signal error."
+    },
+    {
+     "name": "run_eccentric_recovery",
+     "kind": "function",
+     "one_line": "20 seeded trials generating random configs and noisy observations."
+    },
+    {
+     "name": "random_eccentric_config",
+     "kind": "function",
+     "one_line": "Samples a uniform random true config (mass, radius, phase, eccentricity)."
+    },
+    {
+     "name": "_eccentric_signal",
+     "kind": "function",
+     "one_line": "Analytic signal: amplitude*(sin theta + e*0.5*sin 2theta)."
+    },
+    {
+     "name": "EccentricResult",
+     "kind": "class",
+     "one_line": "Per-trial result dataclass with errors and recovered flag."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 20,
+     "context": "default run_eccentric_recovery trials"
+    },
+    {
+     "name": "radius_grid",
+     "value": 121,
+     "context": "0.70 .. 1.30"
+    },
+    {
+     "name": "mass_grid",
+     "value": 81,
+     "context": "1.0e-6 .. 5.0e-6"
+    },
+    {
+     "name": "phase_grid",
+     "value": 91,
+     "context": "0 .. 2pi"
+    },
+    {
+     "name": "ecc_grid",
+     "value": 26,
+     "context": "0 .. 0.50"
+    },
+    {
+     "name": "noise",
+     "value": 2e-08,
+     "context": "Gaussian observation noise"
+    },
+    {
+     "name": "samples",
+     "value": 360,
+     "context": "6-year baseline"
+    },
+    {
+     "name": "pass_mass",
+     "value": 0.1,
+     "context": "recovered if mass rel. error <= 10%"
+    },
+    {
+     "name": "pass_radius",
+     "value": 0.05,
+     "context": "recovered if radius rel. error <= 5%"
+    },
+    {
+     "name": "pass_ecc",
+     "value": 0.05,
+     "context": "recovered if eccentricity abs. error <= 0.05"
+    },
+    {
+     "name": "seed_offset",
+     "value": 3000,
+     "context": "RNG seed = seed + 3000"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.validation.eccentric_body_recovery"
+  },
+  {
+   "path": "gravity_mapper/validation/ensemble_benchmark.py",
+   "lines": 100,
+   "purpose": "Model-selection ensemble test through the real project pipeline: generates synthetic observations for truth models 'ring' and 'compact_pair' (20 seeds each) and runs select_model, counting correct selections, 'unresolved' verdicts, and both false-positive directions. Reports overall accuracy and saves per-seed rows to CSV.",
+   "key_symbols": [
+    {
+     "name": "run_ensemble",
+     "kind": "function",
+     "one_line": "Sweeps truth models x seeds, calls select_model, tallies summary stats, writes CSV."
+    },
+    {
+     "name": "EnsembleSummary",
+     "kind": "class",
+     "one_line": "Aggregate dataclass with accuracy property (correct/total)."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Prints trials, accuracy, unresolved, false_ring, false_compact counts."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials_per_truth",
+     "value": 20,
+     "context": "x2 truth models = 40 total"
+    },
+    {
+     "name": "noise_std",
+     "value": 1e-05,
+     "context": "observation noise"
+    },
+    {
+     "name": "missing_fraction",
+     "value": 0.25,
+     "context": "fraction of observations dropped"
+    },
+    {
+     "name": "unresolved_margin",
+     "value": 0.1,
+     "context": "margin below which select_model returns 'unresolved'"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth",
+    "gravity_mapper.inference.model_selection"
+   ],
+   "cli": "python -m gravity_mapper.validation.ensemble_benchmark"
+  },
+  {
+   "path": "gravity_mapper/validation/known_body_phase_recovery.py",
+   "lines": 168,
+   "purpose": "Single circular-body benchmark with randomized truth parameters (mass, radius, and phase) on a sinusoidal signal; fits all three via brute-force grid search (121 radii x 81 masses x 181 phases). A trial passes if mass error <= 10%, radius error <= 5%, and wrapped phase error <= 0.10 rad.",
+   "key_symbols": [
+    {
+     "name": "recover_phase_body",
+     "kind": "function",
+     "one_line": "Broadcast-vectorized grid search returning best (mass, radius, phase) and wrapped errors."
+    },
+    {
+     "name": "run_phase_recovery",
+     "kind": "function",
+     "one_line": "20 trials with seed+1000 RNGs; writes results/known_body_phase_recovery.csv."
+    },
+    {
+     "name": "random_config",
+     "kind": "function",
+     "one_line": "Samples true mass 1.5-4.5e-6, radius 0.75-1.25, phase 0-2pi."
+    },
+    {
+     "name": "_wrapped_phase_error",
+     "kind": "function",
+     "one_line": "Circular absolute phase difference in [0, pi]."
+    },
+    {
+     "name": "PhaseRecoveryResult",
+     "kind": "class",
+     "one_line": "Per-trial result with errors and recovered flag."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 20,
+     "context": "random true parameters each trial"
+    },
+    {
+     "name": "samples",
+     "value": 240,
+     "context": "4-year baseline"
+    },
+    {
+     "name": "noise",
+     "value": 2e-08,
+     "context": "Gaussian observation noise"
+    },
+    {
+     "name": "phase_grid",
+     "value": 181,
+     "context": "0 .. 2pi, endpoint excluded"
+    },
+    {
+     "name": "pass_mass",
+     "value": 0.1,
+     "context": "mass rel. error <= 10%"
+    },
+    {
+     "name": "pass_radius",
+     "value": 0.05,
+     "context": "radius rel. error <= 5%"
+    },
+    {
+     "name": "pass_phase",
+     "value": 0.1,
+     "context": "wrapped phase error <= 0.10 rad"
+    },
+    {
+     "name": "seed_offset",
+     "value": 1000,
+     "context": "RNG seed = seed + 1000"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.validation.known_body_phase_recovery"
+  },
+  {
+   "path": "gravity_mapper/validation/known_body_recovery.py",
+   "lines": 122,
+   "purpose": "Entry-level ladder benchmark: single known body with fixed truth (mass 3.0e-6, radius 1.0) and a pure zero-phase sinusoid; brute-force grid search over radius (121 points) and mass (161 points) across 20 noise-seed trials. A trial passes if mass error <= 10% and radius error <= 5%.",
+   "key_symbols": [
+    {
+     "name": "recover_known_body",
+     "kind": "function",
+     "one_line": "Exhaustive radius x mass grid search minimizing mean squared signal error."
+    },
+    {
+     "name": "run_known_body_recovery",
+     "kind": "function",
+     "one_line": "20 trials at seeds 0..19; writes results/known_body_recovery.csv."
+    },
+    {
+     "name": "_signal",
+     "kind": "function",
+     "one_line": "Analytic signal: mass/radius^2 * sin(2pi*t/radius^1.5)."
+    },
+    {
+     "name": "RecoveryResult",
+     "kind": "class",
+     "one_line": "Per-trial result with mass/radius errors and recovered flag."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 20,
+     "context": "fixed truth, noise seed varies"
+    },
+    {
+     "name": "true_mass",
+     "value": 3e-06,
+     "context": "fixed true mass"
+    },
+    {
+     "name": "true_radius",
+     "value": 1.0,
+     "context": "fixed true radius"
+    },
+    {
+     "name": "radius_grid",
+     "value": 121,
+     "context": "0.70 .. 1.30"
+    },
+    {
+     "name": "mass_grid",
+     "value": 161,
+     "context": "1.0e-6 .. 5.0e-6"
+    },
+    {
+     "name": "samples",
+     "value": 240,
+     "context": "4-year baseline"
+    },
+    {
+     "name": "noise",
+     "value": 2e-08,
+     "context": "Gaussian observation noise"
+    },
+    {
+     "name": "pass_mass",
+     "value": 0.1,
+     "context": "mass rel. error <= 10%"
+    },
+    {
+     "name": "pass_radius",
+     "value": 0.05,
+     "context": "radius rel. error <= 5%"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.validation.known_body_recovery"
+  },
+  {
+   "path": "gravity_mapper/validation/model_mismatch.py",
+   "lines": 104,
+   "purpose": "Robustness sweep of the real select_model pipeline under degraded conditions (despite the name, it varies signal strength, noise, and missing data rather than structural model mismatch): 4 conditions (strength 1.00/0.50 x noise 1e-3/2e-3 x missing 0.65/0.70), 25 trials per truth model per condition, reporting correct/unresolved/wrong counts and accuracy per condition.",
+   "key_symbols": [
+    {
+     "name": "run_model_mismatch",
+     "kind": "function",
+     "one_line": "Loops 4 conditions x 2 truth models x seeds, calls select_model, writes CSV."
+    },
+    {
+     "name": "MismatchRow",
+     "kind": "class",
+     "one_line": "Per-trial dataclass with condition, selected model, correctness, margin, fit errors."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Prints per-condition accuracy table."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials_per_truth",
+     "value": 25,
+     "context": "x2 truth models x4 conditions = 200 total"
+    },
+    {
+     "name": "conditions",
+     "value": "(1.00,1e-3,0.65),(0.50,1e-3,0.65),(1.00,2e-3,0.70),(0.50,2e-3,0.70)",
+     "context": "(signal_strength, noise_std, missing_fraction)"
+    },
+    {
+     "name": "unresolved_margin",
+     "value": 0.15,
+     "context": "decision margin passed to select_model"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth",
+    "gravity_mapper.inference.model_selection"
+   ],
+   "cli": "python -m gravity_mapper.validation.model_mismatch"
+  },
+  {
+   "path": "gravity_mapper/validation/run_model_selection.py",
+   "lines": 25,
+   "purpose": "Minimal single-shot entry point for the model-selection pipeline: generates one synthetic observation per truth model ('ring', 'compact_pair') at fixed noise 1e-5, missing 0.25, seed 7, runs select_model, and prints the selected model with ring/compact errors and margin. No trials loop, no CSV output.",
+   "key_symbols": [
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Two single-seed runs (one per truth model) with printed diagnostics."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "noise_std",
+     "value": 1e-05,
+     "context": "observation noise"
+    },
+    {
+     "name": "missing_fraction",
+     "value": 0.25,
+     "context": "fraction of observations dropped"
+    },
+    {
+     "name": "seed",
+     "value": 7,
+     "context": "single fixed seed for both truth models"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth",
+    "gravity_mapper.inference.model_selection"
+   ],
+   "cli": "python -m gravity_mapper.validation.run_model_selection"
+  },
+  {
+   "path": "gravity_mapper/validation/signal_threshold.py",
+   "lines": 85,
+   "purpose": "Detectability-floor measurement: sweeps synthetic signal strength through (1.0, 0.50, 0.25, 0.10, 0.05, 0.02) at high noise (1e-3) and 65% missing data, 20 trials per truth model per strength, to find where select_model's correct-selection accuracy collapses and 'unresolved' verdicts take over. Writes results/signal_threshold.csv.",
+   "key_symbols": [
+    {
+     "name": "run_threshold_sweep",
+     "kind": "function",
+     "one_line": "Strength x truth model x seed loop calling select_model; writes CSV."
+    },
+    {
+     "name": "ThresholdRow",
+     "kind": "class",
+     "one_line": "Per-trial dataclass with strength, truth, selection, correctness, margin."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Prints accuracy vs signal strength table."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "strengths",
+     "value": "(1.0,0.50,0.25,0.10,0.05,0.02)",
+     "context": "signal_strength sweep values"
+    },
+    {
+     "name": "trials_per_truth",
+     "value": 20,
+     "context": "x2 truth models x6 strengths = 240 total"
+    },
+    {
+     "name": "noise_std",
+     "value": 0.001,
+     "context": "high-noise condition"
+    },
+    {
+     "name": "missing_fraction",
+     "value": 0.65,
+     "context": "fraction of observations dropped"
+    },
+    {
+     "name": "unresolved_margin",
+     "value": 0.15,
+     "context": "decision margin passed to select_model"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth",
+    "gravity_mapper.inference.model_selection"
+   ],
+   "cli": "python -m gravity_mapper.validation.signal_threshold"
+  },
+  {
+   "path": "gravity_mapper/validation/smoke_test.py",
+   "lines": 10,
+   "purpose": "Import/scaffold smoke test: constructs a default HiddenTruthConfig and prints its description, verifying the benchmarks package imports and builds. No inference runs.",
+   "key_symbols": [
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Instantiates default config and prints scaffold-ready message."
+    }
+   ],
+   "key_numbers": [],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth"
+   ],
+   "cli": "python -m gravity_mapper.validation.smoke_test"
+  },
+  {
+   "path": "gravity_mapper/validation/stress_benchmark.py",
+   "lines": 99,
+   "purpose": "Noise-and-missing-data stress ladder for select_model: 4 escalating conditions (noise 1e-5 to 1e-3 paired with missing 0.25 to 0.65), 10 trials per truth model per condition, reporting correct/unresolved counts and accuracy per condition to results/stress_benchmark.csv.",
+   "key_symbols": [
+    {
+     "name": "run_stress_benchmark",
+     "kind": "function",
+     "one_line": "Condition x truth model x seed loop; writes per-trial CSV."
+    },
+    {
+     "name": "StressRow",
+     "kind": "class",
+     "one_line": "Per-trial dataclass with condition, selection, correctness, margin, fit errors."
+    },
+    {
+     "name": "unresolved_margin",
+     "value": 0.15,
+     "context": "decision margin passed to select_model"
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "conditions",
+     "value": "(1e-5,0.25),(1e-4,0.35),(5e-4,0.50),(1e-3,0.65)",
+     "context": "(noise_std, missing_fraction) escalation ladder"
+    },
+    {
+     "name": "trials_per_truth",
+     "value": 10,
+     "context": "x2 truth models x4 conditions = 80 total"
+    },
+    {
+     "name": "unresolved_margin",
+     "value": 0.15,
+     "context": "decision margin passed to select_model"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth",
+    "gravity_mapper.inference.model_selection"
+   ],
+   "cli": "python -m gravity_mapper.validation.stress_benchmark"
+  },
+  {
+   "path": "gravity_mapper/validation/threshold_grid.py",
+   "lines": 91,
+   "purpose": "Joint calibration grid of decision margin vs detectability: sweeps signal strengths (0.60 down to 0.25) against unresolved_margin values (0.10, 0.15, 0.20) at noise 1e-3 and 65% missing, 20 trials per truth model per cell, to map the correct/unresolved/wrong trade-off and pick a working margin. Writes results/threshold_grid.csv.",
+   "key_symbols": [
+    {
+     "name": "run_threshold_grid",
+     "kind": "function",
+     "one_line": "Margin x strength x truth model x seed loop; writes per-trial CSV."
+    },
+    {
+     "name": "unresolved_margin",
+     "value": "(0.10,0.15,0.20)",
+     "context": "decision margins being calibrated"
+    },
+    {
+     "name": "GridRow",
+     "kind": "class",
+     "one_line": "Per-trial dataclass including the unresolved_margin used."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Prints accuracy table indexed by margin then strength."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "strengths",
+     "value": "(0.60,0.50,0.40,0.35,0.30,0.25)",
+     "context": "signal_strength sweep"
+    },
+    {
+     "name": "trials_per_truth",
+     "value": 20,
+     "context": "x2 truth models x6 strengths x3 margins = 720 total"
+    },
+    {
+     "name": "noise_std",
+     "value": 0.001,
+     "context": "high-noise condition"
+    },
+    {
+     "name": "missing_fraction",
+     "value": 0.65,
+     "context": "fraction of observations dropped"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth",
+    "gravity_mapper.inference.model_selection"
+   ],
+   "cli": "python -m gravity_mapper.validation.threshold_grid"
+  },
+  {
+   "path": "gravity_mapper/validation/two_body_recovery.py",
+   "lines": 226,
+   "purpose": "Greedy successive two-body recovery on summed circular sinusoids: random true pair (A: radius 0.75-1.10, B: 1.15-1.50), fits the dominant body by grid best-fit, subtracts it, fits the second on the residual, then assigns estimates to truth by radius proximity. A trial passes if both masses are within 15% and both radii within 5%. Also defines refine_two_bodies (alternating re-fits) used by two_body_refinement.",
+   "key_symbols": [
+    {
+     "name": "recover_two_bodies",
+     "kind": "function",
+     "one_line": "Greedy fit-then-subtract-then-refit pipeline returning (TwoBodyResult, TwoBodyEstimate)."
+    },
+    {
+     "name": "refine_two_bodies",
+     "kind": "function",
+     "one_line": "Alternating 3-iteration refinement of an initial two-body estimate."
+    },
+    {
+     "name": "_best_fit",
+     "kind": "function",
+     "one_line": "Single-body vectorized grid best-fit (radius x mass x phase)."
+    },
+    {
+     "name": "_assign_to_truth",
+     "kind": "function",
+     "one_line": "Labels the two estimates A/B by closest radius to truth."
+    },
+    {
+     "name": "run_two_body_recovery",
+     "kind": "function",
+     "one_line": "20 trials at seed+2000; writes results/two_body_recovery.csv."
+    },
+    {
+     "name": "random_two_body_config",
+     "kind": "function",
+     "one_line": "Samples two non-overlapping-radius true configs with random phases."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 20,
+     "context": "random pair per trial"
+    },
+    {
+     "name": "radius_grid",
+     "value": 86,
+     "context": "0.70 .. 1.55"
+    },
+    {
+     "name": "mass_grid",
+     "value": 81,
+     "context": "1.0e-6 .. 5.0e-6"
+    },
+    {
+     "name": "phase_grid",
+     "value": 91,
+     "context": "0 .. 2pi, endpoint excluded"
+    },
+    {
+     "name": "samples",
+     "value": 360,
+     "context": "6-year baseline"
+    },
+    {
+     "name": "noise",
+     "value": 2e-08,
+     "context": "Gaussian observation noise"
+    },
+    {
+     "name": "refine_iterations",
+     "value": 3,
+     "context": "alternating iterations in refine_two_bodies"
+    },
+    {
+     "name": "pass_mass",
+     "value": 0.15,
+     "context": "each mass rel. error <= 15%"
+    },
+    {
+     "name": "pass_radius",
+     "value": 0.05,
+     "context": "each radius rel. error <= 5%"
+    },
+    {
+     "name": "seed_offset",
+     "value": 2000,
+     "context": "RNG seed = seed + 2000"
+    }
+   ],
+   "imports_from_project": [],
+   "cli": "python -m gravity_mapper.validation.two_body_recovery"
+  },
+  {
+   "path": "gravity_mapper/validation/two_body_refinement.py",
+   "lines": 61,
+   "purpose": "Head-to-head comparison of greedy recovery vs alternating refinement: runs the same 20 two-body trials through recover_two_bodies (greedy) and refine_two_bodies (3 iterations), printing recovered counts and mean errors per stage and saving both stages in one CSV with a 'stage' column.",
+   "key_symbols": [
+    {
+     "name": "run_two_body_refinement",
+     "kind": "function",
+     "one_line": "Per-seed runs of both stages on identical data; writes staged CSV."
+    },
+    {
+     "name": "main",
+     "kind": "function",
+     "one_line": "Prints greedy vs refined recovered counts and mean errors."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials",
+     "value": 20,
+     "context": "identical seeds (seed+2000) for both stages"
+    },
+    {
+     "name": "stages",
+     "value": 2,
+     "context": "'greedy' and 'refined' rows in the same CSV"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.two_body_recovery"
+   ],
+   "cli": "python -m gravity_mapper.validation.two_body_refinement"
+  },
+  {
+   "path": "ingest_existing_results.py",
+   "lines": 30,
+   "purpose": "Ingests pre-existing benchmark CSVs from results/ (eccentric_body_recovery, dual_eccentric_recovery, two_body_recovery, two_body_refinement, known_body_phase_recovery) into runs/ logs via engine.benchmark_ingest, printing row counts, means, and recovery tallies.",
+   "key_symbols": [],
+   "key_numbers": [
+    {
+     "name": "candidate CSVs",
+     "value": 5,
+     "context": "known benchmark names scanned under results/"
+    }
+   ],
+   "imports_from_project": [
+    "engine.benchmark_ingest"
+   ],
+   "cli": "python ingest_existing_results.py"
+  },
+  {
+   "path": "tests/test_eccentric_body_recovery.py",
+   "lines": 21,
+   "purpose": "Verifies eccentric-body recovery finds mass, radius, and eccentricity from noise-free observations (asserts mass_rel<=0.10, radius_rel<=0.05, ecc_abs<=0.05).",
+   "key_symbols": [
+    {
+     "name": "test_eccentric_recovery_finds_all_parameters",
+     "kind": "function",
+     "one_line": "Runs generate+recover and asserts all parameter error bounds."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "true_mass",
+     "value": 3e-06,
+     "context": "Earth-mass-scale hidden body in solar masses"
+    },
+    {
+     "name": "true_radius",
+     "value": 1.0,
+     "context": "AU"
+    },
+    {
+     "name": "true_eccentricity",
+     "value": 0.2,
+     "context": "test eccentricity"
+    },
+    {
+     "name": "mass threshold",
+     "value": 0.1,
+     "context": "max relative error"
+    },
+    {
+     "name": "radius threshold",
+     "value": 0.05,
+     "context": "max relative error"
+    },
+    {
+     "name": "eccentricity threshold",
+     "value": 0.05,
+     "context": "max absolute error"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.eccentric_body_recovery"
+   ],
+   "cli": "pytest tests/test_eccentric_body_recovery.py"
+  },
+  {
+   "path": "tests/test_ensemble_benchmark.py",
+   "lines": 16,
+   "purpose": "Verifies the ensemble benchmark runner: 2 trials per truth model yields 4 trials with accuracy in [0,1] and a CSV containing a truth_model column.",
+   "key_symbols": [
+    {
+     "name": "test_small_ensemble_writes_results",
+     "kind": "function",
+     "one_line": "Runs a tiny ensemble to a temp CSV and checks row count and contents."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials_per_truth",
+     "value": 2,
+     "context": "trials per truth model; 2 models x 2 = 4 total"
+    },
+    {
+     "name": "noise_std",
+     "value": 1e-05,
+     "context": "position noise used in the ensemble"
+    },
+    {
+     "name": "missing_fraction",
+     "value": 0.25,
+     "context": "dropped-epoch fraction used in the ensemble"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.ensemble_benchmark"
+   ],
+   "cli": "pytest tests/test_ensemble_benchmark.py"
+  },
+  {
+   "path": "tests/test_hidden_truth.py",
+   "lines": 8,
+   "purpose": "Verifies HiddenTruthConfig defaults: truth_model is one of ring/compact_pair and describe_config mentions visible_tracers=5.",
+   "key_symbols": [
+    {
+     "name": "test_hidden_truth_defaults",
+     "kind": "function",
+     "one_line": "Checks default config values and the describe string."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "visible_tracers default",
+     "value": 5,
+     "context": "expected default asserted in describe output"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth"
+   ],
+   "cli": "pytest tests/test_hidden_truth.py"
+  },
+  {
+   "path": "tests/test_imports.py",
+   "lines": 8,
+   "purpose": "Verifies the scientific stack imports: rebound, astropy, numpy, scipy, pandas, matplotlib.",
+   "key_symbols": [
+    {
+     "name": "test_imports",
+     "kind": "function",
+     "one_line": "Imports each third-party dependency."
+    }
+   ],
+   "key_numbers": [],
+   "imports_from_project": [],
+   "cli": "pytest tests/test_imports.py"
+  },
+  {
+   "path": "tests/test_known_body_phase_recovery.py",
+   "lines": 22,
+   "purpose": "Verifies known-body recovery with orbital phase: a noise-free hidden body (mass 3e-6, radius 1.0 AU, phase 0.73) must be flagged recovered with mass_rel<=0.10, radius_rel<=0.05, phase_abs<=0.10.",
+   "key_symbols": [
+    {
+     "name": "test_phase_recovery_finds_mass_radius_and_phase",
+     "kind": "function",
+     "one_line": "Runs generate+recover and asserts recovery flag and error bounds."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "true_mass",
+     "value": 3e-06,
+     "context": "hidden body mass in solar masses"
+    },
+    {
+     "name": "true_radius",
+     "value": 1.0,
+     "context": "AU"
+    },
+    {
+     "name": "true_phase",
+     "value": 0.73,
+     "context": "radians"
+    },
+    {
+     "name": "mass threshold",
+     "value": 0.1,
+     "context": "max relative error"
+    },
+    {
+     "name": "radius threshold",
+     "value": 0.05,
+     "context": "max relative error"
+    },
+    {
+     "name": "phase threshold",
+     "value": 0.1,
+     "context": "max absolute error"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.known_body_phase_recovery"
+   ],
+   "cli": "pytest tests/test_known_body_phase_recovery.py"
+  },
+  {
+   "path": "tests/test_known_body_recovery.py",
+   "lines": 16,
+   "purpose": "Verifies known-body recovery with default config at zero noise: result must be flagged recovered with mass_rel<=0.10 and radius_rel<=0.05.",
+   "key_symbols": [
+    {
+     "name": "test_known_body_recovery_finds_mass_and_radius",
+     "kind": "function",
+     "one_line": "Runs generate+recover and asserts recovery flag and error bounds."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "observation_noise",
+     "value": 0.0,
+     "context": "noise-free test"
+    },
+    {
+     "name": "mass threshold",
+     "value": 0.1,
+     "context": "max relative error"
+    },
+    {
+     "name": "radius threshold",
+     "value": 0.05,
+     "context": "max relative error"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.known_body_recovery"
+   ],
+   "cli": "pytest tests/test_known_body_recovery.py"
+  },
+  {
+   "path": "tests/test_model_mismatch.py",
+   "lines": 10,
+   "purpose": "Verifies the model-mismatch sweep runner: trials_per_truth=1 writes 8 rows to a CSV containing a ring_error column.",
+   "key_symbols": [
+    {
+     "name": "test_model_mismatch_writes_results",
+     "kind": "function",
+     "one_line": "Runs the mismatch sweep to a temp CSV and checks row count and contents."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials_per_truth",
+     "value": 1,
+     "context": "trials per truth; 8 truth configurations x 1 = 8 rows"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.model_mismatch"
+   ],
+   "cli": "pytest tests/test_model_mismatch.py"
+  },
+  {
+   "path": "tests/test_model_selection.py",
+   "lines": 20,
+   "purpose": "Verifies the held-out model selector: select_model picks 'ring' on ring truth and 'compact_pair' on compact-pair truth (zero noise/missing, seed=5, unresolved_margin=0.05).",
+   "key_symbols": [
+    {
+     "name": "test_model_selector_prefers_ring_on_ring_truth",
+     "kind": "function",
+     "one_line": "Asserts 'ring' is selected for ring synthetic truth."
+    },
+    {
+     "name": "test_model_selector_prefers_compact_on_compact_truth",
+     "kind": "function",
+     "one_line": "Asserts 'compact_pair' is selected for compact-pair synthetic truth."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "unresolved_margin",
+     "value": 0.05,
+     "context": "tighter-than-default margin used in the tests"
+    },
+    {
+     "name": "seed",
+     "value": 5,
+     "context": "seed for both synthetic-truth generations"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth",
+    "gravity_mapper.inference.model_selection"
+   ],
+   "cli": "pytest tests/test_model_selection.py"
+  },
+  {
+   "path": "tests/test_observation_schedule.py",
+   "lines": 17,
+   "purpose": "Verifies make_schedule: the complete schedule includes both endpoints with strictly increasing times, and the missing-data variant is seed-reproducible with endpoints kept and fewer points than the full grid.",
+   "key_symbols": [
+    {
+     "name": "test_complete_schedule_includes_endpoints",
+     "kind": "function",
+     "one_line": "Checks endpoints 0.0/10.0 and monotonic increase."
+    },
+    {
+     "name": "test_missing_schedule_is_reproducible",
+     "kind": "function",
+     "one_line": "Checks identical output for same seed, endpoints kept, points dropped."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "full grid points",
+     "value": 121,
+     "context": "10.0 years x 12/yr + 1; missing run must have fewer"
+    },
+    {
+     "name": "missing_fraction",
+     "value": 0.3,
+     "context": "drop rate in the reproducibility test"
+    },
+    {
+     "name": "seed",
+     "value": 42,
+     "context": "seed for the missing-data schedule"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.observation_schedule"
+   ],
+   "cli": "pytest tests/test_observation_schedule.py"
+  },
+  {
+   "path": "tests/test_signal_strength.py",
+   "lines": 21,
+   "purpose": "Verifies signal_strength=0.0 fully removes the hidden perturbation: ring and compact_pair truths with the same seed produce identical observations.",
+   "key_symbols": [
+    {
+     "name": "test_zero_signal_removes_hidden_perturbation",
+     "kind": "function",
+     "one_line": "Asserts allclose positions across truth models at zero signal."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "signal_strength",
+     "value": 0.0,
+     "context": "perturbation multiplier under test"
+    },
+    {
+     "name": "noise_std",
+     "value": 0.0,
+     "context": "noise-free so only the perturbation could differ"
+    },
+    {
+     "name": "seed",
+     "value": 3,
+     "context": "shared seed for both truth models"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth"
+   ],
+   "cli": "pytest tests/test_signal_strength.py"
+  },
+  {
+   "path": "tests/test_signal_threshold.py",
+   "lines": 10,
+   "purpose": "Verifies the signal-threshold sweep runner: trials_per_truth=1 writes 12 rows to a CSV containing a signal_strength column.",
+   "key_symbols": [
+    {
+     "name": "test_threshold_sweep_writes_results",
+     "kind": "function",
+     "one_line": "Runs the threshold sweep to a temp CSV and checks row count and contents."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials_per_truth",
+     "value": 1,
+     "context": "trials per truth; 12 signal strengths x 1 = 12 rows"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.signal_threshold"
+   ],
+   "cli": "pytest tests/test_signal_threshold.py"
+  },
+  {
+   "path": "tests/test_stress_benchmark.py",
+   "lines": 10,
+   "purpose": "Verifies the stress benchmark runner: trials_per_truth=1 writes 8 rows to a CSV containing a noise_std column.",
+   "key_symbols": [
+    {
+     "name": "test_stress_benchmark_writes_rows",
+     "kind": "function",
+     "one_line": "Runs the stress benchmark to a temp CSV and checks row count and contents."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials_per_truth",
+     "value": 1,
+     "context": "trials per truth; 8 stress configs x 1 = 8 rows"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.stress_benchmark"
+   ],
+   "cli": "pytest tests/test_stress_benchmark.py"
+  },
+  {
+   "path": "tests/test_synthetic_truth.py",
+   "lines": 30,
+   "purpose": "Verifies synthetic observation generation: ring observations have shape (n_times, 4, 2) with both fit and held-out samples present, and identical seeds reproduce identical compact-pair outputs.",
+   "key_symbols": [
+    {
+     "name": "test_ring_observations_have_expected_shape",
+     "kind": "function",
+     "one_line": "Checks array shape, fit/held-out mask split, and summary string."
+    },
+    {
+     "name": "test_same_seed_reproduces_same_compact_truth",
+     "kind": "function",
+     "one_line": "Checks seed determinism for times and positions."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "visible_tracers",
+     "value": 4,
+     "context": "tracer count in the shape test"
+    },
+    {
+     "name": "noise_std",
+     "value": 1e-05,
+     "context": "noise used in the determinism test"
+    },
+    {
+     "name": "seed",
+     "value": 7,
+     "context": "seed used in determinism test"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.benchmarks.hidden_truth",
+    "gravity_mapper.benchmarks.synthetic_truth"
+   ],
+   "cli": "pytest tests/test_synthetic_truth.py"
+  },
+  {
+   "path": "tests/test_threshold_grid.py",
+   "lines": 12,
+   "purpose": "Verifies the threshold-grid runner: trials_per_truth=1 writes 36 rows to a CSV containing signal_strength and unresolved_margin columns.",
+   "key_symbols": [
+    {
+     "name": "test_threshold_grid_writes_results",
+     "kind": "function",
+     "one_line": "Runs the threshold grid to a temp CSV and checks row count and contents."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "trials_per_truth",
+     "value": 1,
+     "context": "trials per cell; 36 grid cells x 1 = 36 rows"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.threshold_grid"
+   ],
+   "cli": "pytest tests/test_threshold_grid.py"
+  },
+  {
+   "path": "tests/test_two_body_recovery.py",
+   "lines": 18,
+   "purpose": "Verifies two-body recovery separates two Earth-mass-scale bodies (3e-6 at 0.90 AU, 2e-6 at 1.30 AU) from noise-free observations with both radius errors <= 0.05.",
+   "key_symbols": [
+    {
+     "name": "test_two_body_recovery_separates_bodies",
+     "kind": "function",
+     "one_line": "Runs generate+greedy recover and asserts per-body radius error bounds."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "mass_a/radius_a/phase_a",
+     "value": "3.0e-6 / 0.90 / 0.5",
+     "context": "inner hidden body (solar masses / AU / rad)"
+    },
+    {
+     "name": "mass_b/radius_b/phase_b",
+     "value": "2.0e-6 / 1.30 / 0.2",
+     "context": "outer hidden body (solar masses / AU / rad)"
+    },
+    {
+     "name": "radius error threshold",
+     "value": 0.05,
+     "context": "max radius_a_error and radius_b_error"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.two_body_recovery"
+   ],
+   "cli": "pytest tests/test_two_body_recovery.py"
+  },
+  {
+   "path": "tests/test_two_body_refinement.py",
+   "lines": 19,
+   "purpose": "Verifies local refinement does not worsen the greedy two-body solution: refined fit_error must be within 1e-20 of the greedy fit_error.",
+   "key_symbols": [
+    {
+     "name": "test_refinement_does_not_worsen_recovery",
+     "kind": "function",
+     "one_line": "Runs greedy recover then refine_two_bodies and compares fit errors."
+    }
+   ],
+   "key_numbers": [
+    {
+     "name": "fit tolerance",
+     "value": 1e-20,
+     "context": "max allowed worsening of refined vs greedy fit_error"
+    }
+   ],
+   "imports_from_project": [
+    "gravity_mapper.validation.two_body_recovery"
+   ],
+   "cli": "pytest tests/test_two_body_refinement.py"
+  }
+ ],
+ "non_python": {
+  "gravity_mapper/catalog/solar_system_objects.json": {
+   "purpose": "Curated offline solar-system catalog (v0.1.0) used as the known-object prior for blind-scenario benchmarks; explicitly approximate, not a precision ephemeris.",
+   "structure": "top-level keys: catalog_name, catalog_version, units, reference_epoch, source_note, objects. objects: 10 entries (Sun, Mercury, Venus, Earth, Mars, Ceres, Jupiter, Saturn, Uranus, Neptune), each with object_id, name, class, mass_solar, orbital_radius_au, phase_rad, eccentricity, withhold_eligible. Units: solar masses / AU / radians."
+  },
+  "scenarios/": {
+   "purpose": "Blind-scenario manifests: sealed truth + solver-safe inference JSON per scenario.",
+   "files": [
+    "solar_catalog_inner_sensitive_visible_4_hidden_2_inference.json",
+    "solar_catalog_inner_sensitive_visible_4_hidden_2_truth.json",
+    "solar_catalog_seed_20260919_visible_3_hidden_2_inference.json",
+    "solar_catalog_seed_20260919_visible_3_hidden_2_truth.json"
+   ]
+  },
+  "scenario_observations/": {
+   "purpose": "Noisy visible-body position time series (~1 MB each) generated from the full truth systems.",
+   "files": [
+    "solar_catalog_inner_sensitive_visible_4_hidden_2_long_observations.json",
+    "solar_catalog_inner_sensitive_visible_4_hidden_2_observations.json",
+    "solar_catalog_seed_20260919_visible_3_hidden_2_long_observations.json",
+    "solar_catalog_seed_20260919_visible_3_hidden_2_observations.json"
+   ]
+  },
+  "runs/": {
+   "purpose": "Timestamped benchmark run-result JSONs from the 2026-09-19 benchmark session.",
+   "files": [
+    "20260919T152451Z_engine_smoke_test.json",
+    "20260919T152607Z_benchmark_eccentric_body_recovery.json",
+    "20260919T152607Z_benchmark_known_body_phase_recovery.json",
+    "20260919T152607Z_benchmark_two_body_recovery.json",
+    "20260919T152607Z_benchmark_two_body_refinement.json",
+    "20260919T153237Z_benchmark_blind_inner_solar_system.json",
+    "20260919T153943Z_benchmark_blind_inner_solar_system_radius.json",
+    "20260919T154251Z_benchmark_blind_inner_solar_system_model_selection.json",
+    "20260919T155014Z_benchmark_blind_inner_solar_system_model_selection_residual.json",
+    "20260919T160315Z_benchmark_catalog_one_body_recovery.json",
+    "20260919T160610Z_benchmark_catalog_two_body_recovery.json",
+    "20260919T161323Z_benchmark_catalog_inner_refinement.json",
+    "20260919T161833Z_benchmark_catalog_joint_local_refinement.json",
+    "20260919T162437Z_benchmark_catalog_joint_local_refinement_inner_sensitive.json",
+    "20260919T163514Z_benchmark_catalog_joint_local_refinement_inner_sensitive.json",
+    "20260919T171838Z_benchmark_catalog_joint_local_refinement_inner_sensitive_eccentric.json",
+    "20260919T181411Z_benchmark_catalog_joint_local_refinement_inner_sensitive_eccentric.json"
+   ]
+  }
+ }
+}
