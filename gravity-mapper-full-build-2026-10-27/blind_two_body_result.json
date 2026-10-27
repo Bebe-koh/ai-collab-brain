@@ -1,0 +1,39 @@
+{
+  "scenario_id": "solar_catalog_seed_20260919_visible_3_hidden_2",
+  "method": "sequential_grid_nm_plus_joint_6d",
+  "body1": {
+    "mass_solar": 0.000285998084802861,
+    "radius_au": 9.58295629145655,
+    "phase_rad": 4.750738072146861
+  },
+  "outer": {
+    "mass_solar": 1e-06,
+    "radius_au": 39.99999853544088,
+    "phase_rad": 3.4843062764541437
+  },
+  "inner": {
+    "mass_solar": 0.00028601473175845035,
+    "radius_au": 9.59171988074619,
+    "phase_rad": 4.752327086996706
+  },
+  "joint_train_mse": 3.083991888192598e-11,
+  "one_source_holdout_mse": 6.396433732227985e-11,
+  "two_source_holdout_mse": 9.001877197551832e-10,
+  "two_source_improvement_fraction": -13.07327516299669,
+  "two_source_accepted": false,
+  "per_body_errors": [
+    {
+      "truth_id": "mercury",
+      "mass_relative_error": 1721.8765240554806,
+      "radius_relative_error": 23.77840320523428,
+      "phase_absolute_error": 1.7308582201828804
+    },
+    {
+      "truth_id": "saturn",
+      "mass_relative_error": 0.9965010496850943,
+      "radius_relative_error": 3.1742323101706096,
+      "phase_absolute_error": 1.2656937235458563
+    }
+  ],
+  "recovered": false
+}
