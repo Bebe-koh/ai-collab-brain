@@ -1,0 +1,289 @@
+{
+ "L1": {
+  "case": "L1-phantom-appears",
+  "flagged": true,
+  "lessons_hit": [
+   "point_mass_phantom_incomplete_inventory"
+  ],
+  "surprised": true,
+  "invented": [
+   [
+    "invented_grid_1",
+    1
+   ],
+   [
+    "invented_grid_2",
+    1
+   ],
+   [
+    "invented_grid_3",
+    1
+   ],
+   [
+    "invented_pair_4",
+    2
+   ],
+   [
+    "invented_pair_5",
+    2
+   ],
+   [
+    "invented_grid_6",
+    1
+   ],
+   [
+    "invented_grid_7",
+    1
+   ]
+  ],
+  "posteriors": {
+   "null": 0.471688,
+   "phantom_31au": 0.471688,
+   "invented_grid_3": 0.009434,
+   "invented_pair_4": 0.009434,
+   "invented_pair_5": 0.009434,
+   "invented_grid_6": 0.009434,
+   "invented_grid_7": 0.009434,
+   "invented_grid_1": 0.004728,
+   "invented_grid_2": 0.004728
+  },
+  "consolidated": 9,
+  "n_hypotheses": 9,
+  "capped": false,
+  "capped_names": [],
+  "parent_total_hypotheses": 140,
+  "parent_total_consolidations": 14,
+  "parent_n_bins": 58,
+  "lesson_cases": [
+   "R1b-phantom-flagged",
+   "L1-phantom-appears"
+  ]
+ },
+ "L2": {
+  "case": "L2-inventory-completed",
+  "flagged": false,
+  "lessons_hit": [],
+  "surprised": true,
+  "invented": [
+   [
+    "invented_grid_8",
+    1
+   ],
+   [
+    "invented_grid_9",
+    1
+   ],
+   [
+    "invented_grid_10",
+    1
+   ],
+   [
+    "invented_pair_11",
+    2
+   ],
+   [
+    "invented_pair_12",
+    2
+   ],
+   [
+    "invented_grid_13",
+    1
+   ],
+   [
+    "invented_grid_14",
+    1
+   ]
+  ],
+  "posteriors": {
+   "null": 0.814207,
+   "invented_grid_3": 0.016284,
+   "invented_pair_4": 0.016284,
+   "invented_pair_5": 0.016284,
+   "invented_grid_6": 0.016284,
+   "invented_grid_7": 0.016284,
+   "invented_grid_8": 0.012935,
+   "invented_pair_12": 0.012935,
+   "invented_grid_13": 0.012935,
+   "invented_grid_14": 0.012935,
+   "invented_grid_9": 0.010275,
+   "invented_grid_10": 0.010275,
+   "invented_pair_11": 0.010275,
+   "invented_grid_1": 0.008161,
+   "invented_grid_2": 0.008161,
+   "phantom_31au": 0.005486
+  },
+  "consolidated": 16,
+  "phantom_killed_by_inventory": true,
+  "n_hypotheses": 16,
+  "capped": false,
+  "capped_names": [],
+  "parent_total_hypotheses": 156,
+  "parent_total_consolidations": 15,
+  "parent_n_bins": 59,
+  "lesson_cases": [
+   "R1b-phantom-flagged",
+   "L1-phantom-appears"
+  ]
+ },
+ "L3": {
+  "case": "L3-perturbers-promoted",
+  "flagged": false,
+  "lessons_hit": [],
+  "surprised": true,
+  "invented": [
+   [
+    "invented_grid_15",
+    1
+   ],
+   [
+    "invented_grid_16",
+    1
+   ],
+   [
+    "invented_grid_17",
+    1
+   ],
+   [
+    "invented_pair_18",
+    2
+   ],
+   [
+    "invented_pair_19",
+    2
+   ],
+   [
+    "invented_grid_20",
+    1
+   ],
+   [
+    "invented_grid_21",
+    1
+   ]
+  ],
+  "posteriors": {
+   "null": 0.381549,
+   "ceres": 0.163408,
+   "vesta": 0.163408,
+   "pallas": 0.163408,
+   "invented_grid_3": 0.007631,
+   "invented_pair_4": 0.007631,
+   "invented_pair_5": 0.007631,
+   "invented_grid_6": 0.007631,
+   "invented_grid_7": 0.007631,
+   "invented_grid_15": 0.007631,
+   "invented_grid_20": 0.007631,
+   "invented_grid_21": 0.007631,
+   "invented_grid_8": 0.006061,
+   "invented_pair_12": 0.006061,
+   "invented_grid_13": 0.006061,
+   "invented_grid_14": 0.006061,
+   "invented_grid_9": 0.004815,
+   "invented_grid_10": 0.004815,
+   "invented_pair_11": 0.004815,
+   "invented_grid_17": 0.004815,
+   "invented_pair_18": 0.004815,
+   "invented_pair_19": 0.004815,
+   "invented_grid_1": 0.003825,
+   "invented_grid_2": 0.003825,
+   "invented_grid_16": 0.003825,
+   "phantom_31au": 0.002571
+  },
+  "consolidated": 26,
+  "perturber_verdicts": {
+   "ceres": "promoted",
+   "vesta": "promoted",
+   "pallas": "promoted"
+  },
+  "prior_shares": {
+   "null": 0.41183,
+   "invented_grid_3": 0.008237,
+   "invented_pair_4": 0.008237,
+   "invented_pair_5": 0.008237,
+   "invented_grid_6": 0.008237,
+   "invented_grid_7": 0.008237,
+   "invented_grid_8": 0.006543,
+   "invented_pair_12": 0.006543,
+   "invented_grid_13": 0.006543,
+   "invented_grid_14": 0.006543,
+   "invented_grid_9": 0.005197,
+   "invented_grid_10": 0.005197,
+   "invented_pair_11": 0.005197,
+   "invented_grid_1": 0.004128,
+   "invented_grid_2": 0.004128,
+   "phantom_31au": 0.002775,
+   "ceres": 0.164732,
+   "vesta": 0.164732,
+   "pallas": 0.164732
+  },
+  "n_hypotheses": 26,
+  "capped": false,
+  "capped_names": [],
+  "parent_total_hypotheses": 182,
+  "parent_total_consolidations": 16,
+  "parent_n_bins": 64,
+  "lesson_cases": [
+   "R1b-phantom-flagged",
+   "L1-phantom-appears"
+  ]
+ },
+ "L4": {
+  "case": "L4-clean-null",
+  "flagged": false,
+  "lessons_hit": [],
+  "surprised": false,
+  "invented": [],
+  "posteriors": {
+   "null": 0.386587,
+   "ceres": 0.165566,
+   "vesta": 0.165566,
+   "pallas": 0.165566,
+   "invented_grid_3": 0.007732,
+   "invented_pair_4": 0.007732,
+   "invented_grid_6": 0.007732,
+   "invented_grid_7": 0.007732,
+   "invented_grid_15": 0.007732,
+   "invented_grid_20": 0.007732,
+   "invented_grid_21": 0.007732,
+   "invented_grid_8": 0.006142,
+   "invented_grid_13": 0.006142,
+   "invented_grid_14": 0.006142,
+   "invented_grid_9": 0.004878,
+   "invented_grid_10": 0.004878,
+   "invented_pair_11": 0.004878,
+   "invented_grid_17": 0.004878,
+   "invented_pair_18": 0.004878,
+   "invented_pair_19": 0.004878,
+   "invented_grid_1": 0.003875,
+   "invented_grid_2": 0.003875,
+   "invented_grid_16": 0.003875,
+   "invented_pair_5": 0.001046,
+   "kb_ring_43au": 0.001042,
+   "invented_pair_12": 0.000831,
+   "phantom_31au": 0.000353
+  },
+  "consolidated": 27,
+  "n_hypotheses": 27,
+  "capped": false,
+  "capped_names": [],
+  "parent_total_hypotheses": 209,
+  "parent_total_consolidations": 17,
+  "parent_n_bins": 64,
+  "lesson_cases": [
+   "R1b-phantom-flagged",
+   "L1-phantom-appears"
+  ]
+ },
+ "persistence": {
+  "hypotheses_entries": 2,
+  "p9_entries": [
+   "p9_population_forward_model_20261014",
+   "p9_population_forward_model_20261014_resolved"
+  ],
+  "phantom_lesson_present": true,
+  "lesson_cases": [
+   "R1b-phantom-flagged",
+   "L1-phantom-appears"
+  ],
+  "consolidations_added": 4
+ }
+}
