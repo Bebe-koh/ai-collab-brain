@@ -1,0 +1,6 @@
+{
+ "scenario_id": "null_control",
+ "seed": 20261013,
+ "withheld_truth": null,
+ "note": "SEALED: open only after inference (score step)."
+}
