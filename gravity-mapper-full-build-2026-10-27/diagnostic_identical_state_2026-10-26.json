@@ -1,0 +1,58 @@
+{
+  "baseline_holdout": 7.803852138271759e-05,
+  "spline_refit": {
+    "n_extra": 4,
+    "state": [
+      -39.00389684605676,
+      -3.0946618673635977,
+      3.072894453170085,
+      0.17548655601091964,
+      -0.9959731133482823,
+      -0.045738678218688864
+    ],
+    "rms": 6.34802514090728e-05,
+    "cost": 2.5387376609442245e-07,
+    "nfev": 77,
+    "best_start": 0,
+    "success": true
+  },
+  "analytic_refit": {
+    "n_extra": 4,
+    "state": [
+      -39.00389684592121,
+      -3.0946618673959456,
+      3.0728944545287344,
+      0.1754865559844748,
+      -0.9959731133460307,
+      -0.045738678468735056
+    ],
+    "rms": 6.348025141060541e-05,
+    "cost": 2.5387376610668114e-07,
+    "nfev": 42,
+    "best_start": 0,
+    "success": true
+  },
+  "refit_state_max_diff": 1.3586496372397505e-09,
+  "cross_eval": {
+    "spline_refit_state x spline_model": {
+      "holdout_rms": 7.789432704668194e-05,
+      "mse_ratio": 1.003705733252062
+    },
+    "spline_refit_state x analytic_model": {
+      "holdout_rms": 7.78943270456415e-05,
+      "mse_ratio": 1.0037057332788755
+    },
+    "analytic_refit_state x spline_model": {
+      "holdout_rms": 7.789389130769645e-05,
+      "mse_ratio": 1.0037169627575824
+    },
+    "analytic_refit_state x analytic_model": {
+      "holdout_rms": 7.789389130769645e-05,
+      "mse_ratio": 1.0037169627575824
+    },
+    "orig_spline_ratio": 1.003705733252062,
+    "orig_analytic_ratio": 1.0037169627575824
+  },
+  "orig_spline_verdict": null,
+  "note": "No default switched; no threshold changed; original failed comparison preserved, not relabeled."
+}
